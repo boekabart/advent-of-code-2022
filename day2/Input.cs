@@ -2,7 +2,7 @@
 
 static class Input
 {
-    public static string RawCalorieList => @"
+    public static string RawStrategyList => @"
 B Z
 B Z
 C Z

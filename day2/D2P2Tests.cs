@@ -43,8 +43,11 @@ C Z
     }
 
     [Fact]
-    public void CountingIsOkFor3()
+    public void GetTotalScoreIsOk()
     {
-
+        Input.ParsePredictions()
+            .MapToRounds()
+            .GetTotalScore()
+            .Should().Be(12);
     }
 }
