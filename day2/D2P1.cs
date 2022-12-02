@@ -2,17 +2,16 @@
 
 namespace day2;
 
-enum RPS
+public enum Move
 {
-    INVALID = 0,
     Rock = 1,
     Paper = 2,
     Scissors = 3,
 }
 
-record Round(RPS Opponent, RPS You);
+record Round(Move Opponent, Move You);
 
-enum Result
+public enum Result
 {
     Opponent = 0,
     Draw = 3,
@@ -22,22 +21,22 @@ enum Result
 
 internal static class D2P1
 {
-    public static int Score(this RPS rps) => (int) rps;
+    public static int Score(this Move move) => (int) move;
     public static int Score(this Result result) => (int) result;
 
     public static Result Result(this Round round) => (round.You, round.Opponent) switch
     {
-        (RPS.Rock, RPS.Rock) => day2.Result.Draw,
-        (RPS.Rock, RPS.Paper) => day2.Result.Opponent,
-        (RPS.Rock, RPS.Scissors) => day2.Result.You,
+        (Move.Rock, Move.Rock) => day2.Result.Draw,
+        (Move.Rock, Move.Paper) => day2.Result.Opponent,
+        (Move.Rock, Move.Scissors) => day2.Result.You,
 
-        (RPS.Paper, RPS.Rock) => day2.Result.You,
-        (RPS.Paper, RPS.Paper) => day2.Result.Draw,
-        (RPS.Paper, RPS.Scissors) => day2.Result.Opponent,
+        (Move.Paper, Move.Rock) => day2.Result.You,
+        (Move.Paper, Move.Paper) => day2.Result.Draw,
+        (Move.Paper, Move.Scissors) => day2.Result.Opponent,
 
-        (RPS.Scissors, RPS.Rock) => day2.Result.Opponent,
-        (RPS.Scissors, RPS.Paper) => day2.Result.You,
-        (RPS.Scissors, RPS.Scissors) => day2.Result.Draw,
+        (Move.Scissors, Move.Rock) => day2.Result.Opponent,
+        (Move.Scissors, Move.Paper) => day2.Result.You,
+        (Move.Scissors, Move.Scissors) => day2.Result.Draw,
 
         _ => throw new UnreachableException()
     };
@@ -55,11 +54,11 @@ internal static class D2P1
         return null;
     }
 
-    private static RPS? TryParseOpponentMove(string c) =>
-        c switch {"A" => RPS.Rock, "B" => RPS.Paper, "C" => RPS.Scissors, _ => null};
+    public static Move? TryParseOpponentMove(string c) =>
+        c switch {"A" => Move.Rock, "B" => Move.Paper, "C" => Move.Scissors, _ => null};
 
-    private static RPS? TryParseYourMove(string c) =>
-        c switch {"X" => RPS.Rock, "Y" => RPS.Paper, "Z" => RPS.Scissors, _ => null};
+    private static Move? TryParseYourMove(string c) =>
+        c switch {"X" => Move.Rock, "Y" => Move.Paper, "Z" => Move.Scissors, _ => null};
 
     public static IEnumerable<Round> ParseRounds(string input) =>
         input.Split(new[] {'\r'}).Select(TryParseRound).OfType<Round>();

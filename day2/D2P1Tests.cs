@@ -14,18 +14,18 @@ C Z
     [Fact]
     void ParsingIsOk()
     {
-        var actual = D2P1.ParseRounds(Input);
+        var actual = D2P1.ParseRounds(Input).ToArray();
         actual.Should().HaveCount(3);
-        actual.Skip(0).First().Opponent.Should().Be(RPS.Rock);
-        actual.Skip(1).First().Opponent.Should().Be(RPS.Paper);
-        actual.Skip(2).First().Opponent.Should().Be(RPS.Scissors);
-        actual.Skip(0).First().You.Should().Be(RPS.Paper);
-        actual.Skip(1).First().You.Should().Be(RPS.Rock);
-        actual.Skip(2).First().You.Should().Be(RPS.Scissors);
+        actual.Skip(0).First().Opponent.Should().Be(Move.Rock);
+        actual.Skip(1).First().Opponent.Should().Be(Move.Paper);
+        actual.Skip(2).First().Opponent.Should().Be(Move.Scissors);
+        actual.Skip(0).First().You.Should().Be(Move.Paper);
+        actual.Skip(1).First().You.Should().Be(Move.Rock);
+        actual.Skip(2).First().You.Should().Be(Move.Scissors);
     }
 
     [Fact]
-    void GetRawScoreIsOK()
+    public void GetRawScoreIsOk()
     {
         var rounds = D2P1.ParseRounds(Input).ToArray();
         rounds[0].You.Score().Should().Be(2);
@@ -39,7 +39,7 @@ C Z
     }
 
     [Fact]
-    void GetScoreIsOK()
+    public void GetScoreIsOk()
     {
         var rounds = D2P1.ParseRounds(Input).ToArray();
         rounds[0].Score().Should().Be(8);
@@ -48,7 +48,7 @@ C Z
     }
 
     [Fact]
-    void GetTotalScoreIsOK()
+    public void GetTotalScoreIsOk()
     {
         D2P1.ParseRounds(Input).GetTotalScore().Should().Be(15);
     }
