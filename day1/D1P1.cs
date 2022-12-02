@@ -4,7 +4,7 @@ internal static class D1P1
 {
     public static IEnumerable<int?> GetCalorieList(string input)
     {
-        return input.Split(new[] {'\r'}).Select( txt => int.TryParse(txt.Trim(), out var number)?(int?)number: null);
+        return input.Split(new[] {'\n'}).Select( txt => int.TryParse(txt.Trim(), out var number)?(int?)number: null);
     }
 
     private record struct Aggregate(int SoFar = 0, int Max = 0);

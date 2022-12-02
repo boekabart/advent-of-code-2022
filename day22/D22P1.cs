@@ -8,7 +8,7 @@ internal static class D22P1
 {
     public static IEnumerable<Thing> ParseThings(this string input) =>
         input
-            .Split(new[] {'\r'})
+            .Split(new[] {'\n'})
             .Select(TryParseAsThing)
             .OfType<Thing>();
 
