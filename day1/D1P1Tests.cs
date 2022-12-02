@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace d1p1;
+namespace day1;
 
 public class D1P1Tests
 {

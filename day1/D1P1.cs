@@ -1,4 +1,4 @@
-﻿namespace d1p1;
+﻿namespace day1;
 
 internal static class D1P1
 {

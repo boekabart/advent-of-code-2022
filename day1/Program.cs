@@ -1,4 +1,4 @@
-﻿using d1p1;
+﻿using day1;
 
 var calorieList = D1P1.GetCalorieList(Input.RawCalorieList);
 var outputQ1 = D1P1.GetCaloriesOfHighestElve(calorieList);
