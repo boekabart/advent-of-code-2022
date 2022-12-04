@@ -2,21 +2,33 @@
 
 namespace day3;
 
-public record Thing(bool Data);
+public record Backpack(HashSet<char> FirstCompartment, HashSet<char> SecondCompartment);
 
 internal static class D3P1
 {
-    public static IEnumerable<Thing> ParseThings(this string input) =>
+    public static IEnumerable<Backpack> ParseBackpacks(this string input) =>
         input
-            .Split(new[] {'\n'})
-            .Select(TryParseAsThing)
-            .OfType<Thing>();
+            .Split(new[] { '\n' })
+            .Select(s => s.Trim())
+            .Select(TryParseAsBackpack)
+            .OfType<Backpack>();
 
-    public static Thing? TryParseAsThing(this string line)
+    public static Backpack? TryParseAsBackpack(this string line)
     {
-        return null;
+        if (line.Length == 0 || line.Length % 2 != 0) return null;
+        var half = line.Length / 2;
+        return new(line[0..half].ToHashSet(), line[half..].ToHashSet());
     }
 
-    public static int GetResult(this IEnumerable<Thing> things) => things.Select(AsResult).Sum();
-    public static int AsResult(this Thing thing) => 0;
+    public static int GetResult(this IEnumerable<Backpack> things) => things.Select(AsResult).Sum();
+    public static int AsResult(this Backpack backpack) => backpack.DuplicateItem().Priority();
+
+    public static char DuplicateItem(this Backpack b) => b.FirstCompartment.Intersect(b.SecondCompartment).First();
+
+    public static int Priority(this char item) => item switch
+    {
+        >= 'a' and <= 'z' => 1 + (int)(item - 'a'),
+        >= 'A' and <= 'Z' => 27 + (int)(item - 'A'),
+        _ => throw new ArgumentOutOfRangeException()
+    };
 }
