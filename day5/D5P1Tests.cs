@@ -26,6 +26,24 @@ public class D5P1Tests
     }
 
     [Fact]
+    public void ParseBoxesTest()
+    {
+        var lines = Input.ExampleInput.ParseBoxes().ToList();
+        lines.Should().HaveCount(3);
+        lines[0][0].Should().BeNull();
+        lines[0][1].Should().Be('D');
+        lines[0][2].Should().BeNull();
+    }
+
+    [Fact]
+    public void ParseBoxesAsStacksTest()
+    {
+        var stacks = Input.ExampleInput.ParseBoxes().AsStacks();
+        stacks.Should().HaveCount(3);
+        stacks[0].Should().BeEquivalentTo(new[] {'Z', 'N'});
+    }
+
+    [Fact]
     public void AsStacksTest()
     {
         var linesOfBoxes = new[]
