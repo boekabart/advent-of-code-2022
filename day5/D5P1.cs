@@ -6,17 +6,16 @@ public record ProgramStep(int NumberOfBoxes, int FromStack, int ToStack);
 
 internal static class D5P1
 {
-    public static List<string?>? TryParseLineOfBoxes(this string line) =>
-        line
-            .Split(new[] {'\n'}).ToList();
+    public static List<char?>? TryParseLineOfBoxes(this string line) =>
+        throw new NotImplementedException();
     
-    public static IEnumerable<List<string?>> ParseBoxes(this string input) =>
+    public static IEnumerable<List<char?>> ParseBoxes(this string input) =>
         input
             .Split(new[] {'\n'})
             .Select(TryParseLineOfBoxes)
-            .OfType<List<string?>>();
+            .OfType<List<char?>>();
 
-    public static List<Stack<string>> AsStacks(this IEnumerable<List<string?>> input) =>
+    public static List<Stack<char>> AsStacks(this IEnumerable<List<char?>> input) =>
         throw new NotImplementedException();
 
     public static IEnumerable<ProgramStep> ParseProgram(this string input) =>
@@ -31,9 +30,12 @@ internal static class D5P1
         return null;
     }
 
-    public static List<Stack<string>> Execute(this IEnumerable<ProgramStep> program, List<Stack<string>> stacks) =>
+    public static List<Stack<char>> Execute(this IEnumerable<ProgramStep> program, List<Stack<char>> stacks) =>
         throw new NotImplementedException();
-    public static string TopCrates(this List<Stack<string>> stacks) => 
+    public static List<Stack<char>> Execute(this ProgramStep programStep, List<Stack<char>> stacks) =>
+        throw new NotImplementedException();
+
+    public static string TopCrates(this List<Stack<char>> stacks) => 
         throw new NotImplementedException();
     public static IEnumerable<T[]> Buffer<T>(this IEnumerable<T> items, int bufferSize) =>
         items.Select((item, idx) => (Item: item, Window: idx / bufferSize))

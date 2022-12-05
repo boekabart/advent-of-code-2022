@@ -21,12 +21,88 @@ public class D5P1Tests
             return;
         }
 
-        actualThing.Select(str => str is null ? '.' : str[0]).Should().BeEquivalentTo(expectedThing);
+        actualThing.Should().NotBeNull();
+        actualThing!.Select(str => str ?? '.').Should().BeEquivalentTo(expectedThing);
     }
 
     [Fact]
-    public void ParseInputTest()
+    public void AsStacksTest()
     {
+        var linesOfBoxes = new[]
+        {
+            new List<char?> {null, 'A', 'B'},
+            new List<char?> {'C', 'D', 'E'},
+        };
+        var actual = linesOfBoxes.AsStacks();
+        actual.Should().HaveCount(3);
+        actual[0].Peek().Should().Be('C');
+        actual[0].Count.Should().Be(1);
+        actual[1].Peek().Should().Be('A');
+        actual[1].Count.Should().Be(2);
+        actual[2].Peek().Should().Be('B');
+        actual[2].Count.Should().Be(2);
+    }
+
+    [Fact]
+    public void TopCratesTest()
+    {
+        var linesOfBoxes = new[]
+        {
+            new List<char?> {null, 'A', 'B'},
+            new List<char?> {'C', 'D', 'E'},
+        };
+        var stacks = linesOfBoxes.AsStacks();
+        var actual = stacks.TopCrates();
+        actual.Should().Be("CAB");
+    }
+
+    [Fact]
+    public void ExecuteProgramStepTest()
+    {
+        var linesOfBoxes = new[]
+        {
+            new List<char?> {null, 'A', 'B'},
+            new List<char?> {'C', 'D', 'E'},
+        };
+        var stacks = linesOfBoxes.AsStacks();
+        var programStep = new ProgramStep(1, 3, 1);
+        var actual = programStep.Execute(stacks);
+        actual.TopCrates().Should().Be("BAE");
+    }
+
+    [Fact]
+    public void ExecuteProgramTest()
+    {
+        var linesOfBoxes = new[]
+        {
+            new List<char?> {null, 'A', 'B'},
+            new List<char?> {'C', 'D', 'E'},
+        };
+        var stacks = linesOfBoxes.AsStacks();
+        var programStep1 = new ProgramStep(1, 3, 1);
+        var programStep2 = new ProgramStep(1, 2, 1);
+        var program = new[] {programStep1, programStep2};
+        var actual = program.Execute(stacks);
+        actual.TopCrates().Should().Be("ADE");
+    }
+
+    [Fact]
+    public void TryParseAsProgramStepTest()
+    {
+        var line = "move 3 from 1 to 2";
+        var actual = line.TryParseAsProgramStep();
+        actual.Should().NotBeNull();
+        actual!.NumberOfBoxes.Should().Be(3);
+        actual.FromStack.Should().Be(1);
+        actual.ToStack.Should().Be(2);
+    }
+
+    [Fact]
+    public void TryParseAsProgramStepNullTest()
+    {
+        var line = "[A] [B]   ";
+        var actual = line.TryParseAsProgramStep();
+        actual.Should().BeNull();
     }
 
     [Fact]

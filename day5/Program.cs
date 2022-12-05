@@ -1,5 +1,8 @@
 ﻿using day5;
 
-var things = Input.RawInput.ParseStacks();
-var result = things.GetResult();
-Console.WriteLine($"Wonder what this day will bring... In any case, the result it {result}");
+var stacks = Input.RawInput.ParseBoxes().AsStacks();
+var program = Input.ExampleInput.ParseProgram();
+var newStacks = program.Execute(stacks);
+var result = newStacks.TopCrates();
+Console.WriteLine($"The top crates after the program are {result}");
+
