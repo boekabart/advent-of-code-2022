@@ -13,12 +13,12 @@ internal static class D5P1
         var m = BoxesRegex.Match(line);
         return !m.Success
             ? null
-            : Enumerable.Range(0, (line.Length+1)/4)
+            : Enumerable.Range(0, (line.Length + 1) / 4)
                 .Select(idx => line[idx * 4 + 1])
-                .Select(chr => chr switch { ' ' => (char?)null, _ => chr })
+                .Select(chr => chr switch {' ' => (char?) null, _ => chr})
                 .ToList();
     }
-    
+
     public static IEnumerable<List<char?>> ParseBoxes(this string input) =>
         input
             .Split('\n', '\r')
@@ -39,13 +39,15 @@ internal static class D5P1
 
     public static IEnumerable<ProgramStep> ParseProgram(this string input) =>
         input
-            .Split(new[] { '\n' })
+            .Split(new[] {'\n'})
             .Select(s => s.Trim())
             .Select(TryParseAsProgramStep)
             .OfType<ProgramStep>();
 
 
-    private static readonly Regex ProgramRegex = new Regex(@"^move (?<count>\d+) from (?<from>\d+) to (?<to>\d+)$", RegexOptions.Compiled);
+    private static readonly Regex ProgramRegex =
+        new Regex(@"^move (?<count>\d+) from (?<from>\d+) to (?<to>\d+)$", RegexOptions.Compiled);
+
     public static ProgramStep? TryParseAsProgramStep(this string line)
     {
         var match = ProgramRegex.Match(line);
@@ -57,9 +59,11 @@ internal static class D5P1
     }
 
 
-    public static List<Stack<char>> Execute(this IEnumerable<ProgramStep> program, List<Stack<char>> stacks) => program.Aggregate(stacks, Execute);
+    public static List<Stack<char>> Execute(this IEnumerable<ProgramStep> program, List<Stack<char>> stacks) =>
+        program.Aggregate(stacks, Execute);
 
-    public static List<Stack<char>> Execute(this List<Stack<char>> stacks, ProgramStep programStep) => Execute(programStep, stacks);
+    public static List<Stack<char>> Execute(this List<Stack<char>> stacks, ProgramStep programStep) =>
+        Execute(programStep, stacks);
 
     public static List<Stack<char>> Execute(this ProgramStep programStep, List<Stack<char>> stacks)
     {
