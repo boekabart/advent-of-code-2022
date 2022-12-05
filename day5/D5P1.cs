@@ -6,19 +6,19 @@ public record ProgramStep(int NumberOfBoxes, int FromStack, int ToStack);
 
 internal static class D5P1
 {
-    private static readonly Regex BoxesRegex = new Regex(@"^((\[\w\]|   ) )*(\[\w\]|   )$", RegexOptions.Compiled);
+    private static readonly Regex BoxesRegex = new(@"^((\[\w\]|   ) )*(\[\w\]|   )$", RegexOptions.Compiled);
 
     public static List<char?>? TryParseLineOfBoxes(this string line)
     {
         var m = BoxesRegex.Match(line);
         return !m.Success
             ? null
-            : Enumerable.Range(0, (line.Length + 1) / 4)
+            : Enumerable.Range(0, (line.Length+1)/4)
                 .Select(idx => line[idx * 4 + 1])
-                .Select(chr => chr switch {' ' => (char?) null, _ => chr})
+                .Select(chr => chr switch { ' ' => (char?)null, _ => chr })
                 .ToList();
     }
-
+    
     public static IEnumerable<List<char?>> ParseBoxes(this string input) =>
         input
             .Split('\n', '\r')
@@ -39,14 +39,14 @@ internal static class D5P1
 
     public static IEnumerable<ProgramStep> ParseProgram(this string input) =>
         input
-            .Split(new[] {'\n'})
+            .Split(new[] { '\n' })
             .Select(s => s.Trim())
             .Select(TryParseAsProgramStep)
             .OfType<ProgramStep>();
 
 
     private static readonly Regex ProgramRegex =
-        new Regex(@"^move (?<count>\d+) from (?<from>\d+) to (?<to>\d+)$", RegexOptions.Compiled);
+        new(@"^move (?<count>\d+) from (?<from>\d+) to (?<to>\d+)$", RegexOptions.Compiled);
 
     public static ProgramStep? TryParseAsProgramStep(this string line)
     {
