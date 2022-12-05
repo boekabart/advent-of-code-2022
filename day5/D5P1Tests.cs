@@ -5,12 +5,12 @@ namespace day5;
 
 public class D5P1Tests
 {
-    [InlineData("[A] [B]    ","AB.")]
-    [InlineData("[A] [B]","AB")]
-    [InlineData("    [B]",".B")]
-    [InlineData("",null)]
-    [InlineData(" 1   2   3   4   5   6   7   8   9 ",null)]
-    [InlineData("move 2 from 8 to 2",null)]
+    [InlineData("[A] [B]    ", "AB.")]
+    [InlineData("[A] [B]", "AB")]
+    [InlineData("    [B]", ".B")]
+    [InlineData("", null)]
+    [InlineData(" 1   2   3   4   5   6   7   8   9 ", null)]
+    [InlineData("move 2 from 8 to 2", null)]
     [Theory]
     public void ParseLineOfBoxesTest(string line, string? expectedThing)
     {
@@ -40,7 +40,7 @@ public class D5P1Tests
     {
         var stacks = Input.ExampleInput.ParseBoxes().AsStacks();
         stacks.Should().HaveCount(3);
-        stacks[0].Should().BeEquivalentTo(new[] {'Z', 'N'});
+        stacks[0].Should().BeEquivalentTo(new[] { 'Z', 'N' });
     }
 
     [Fact]
@@ -99,7 +99,7 @@ public class D5P1Tests
         var stacks = linesOfBoxes.AsStacks();
         var programStep1 = new ProgramStep(1, 3, 1);
         var programStep2 = new ProgramStep(1, 2, 1);
-        var program = new[] {programStep1, programStep2};
+        var program = new[] { programStep1, programStep2 };
         var actual = program.Execute(stacks);
         actual.TopCrates().Should().Be("ADE");
     }

@@ -13,12 +13,12 @@ internal static class D5P1
         var m = BoxesRegex.Match(line);
         return !m.Success
             ? null
-            : Enumerable.Range(0, (line.Length+1)/4)
+            : Enumerable.Range(0, (line.Length + 1) / 4)
                 .Select(idx => line[idx * 4 + 1])
                 .Select(chr => chr switch { ' ' => (char?)null, _ => chr })
                 .ToList();
     }
-    
+
     public static IEnumerable<List<char?>> ParseBoxes(this string input) =>
         input
             .Split('\n', '\r')
