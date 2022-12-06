@@ -1,22 +1,34 @@
-﻿using System.Diagnostics;
-
-namespace day6;
-
-public record Thing(bool Data);
+﻿namespace day6;
 
 internal static class D6P1
 {
-    public static IEnumerable<Thing> ParseThings(this string input) =>
+    public static int? CalculateLengthOfPrefixAndMarker(this string input) =>
         input
-            .Split(new[] {'\n'})
-            .Select(TryParseAsThing)
-            .OfType<Thing>();
+            .Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries)[0]
+            .Trim()
+            .CalculateLengthOfPrefixAndMarkerOnTrimmedString();
 
-    public static Thing? TryParseAsThing(this string line)
+    private static int? CalculateLengthOfPrefixAndMarkerOnTrimmedString(this string input)
     {
-        return null;
+        var list = input.Zip(input.Skip(1), input.Skip(2).Zip(input.Skip(3)))
+            .Select(AreUnique2)
+            .ToList();
+
+        if (!list.Any(unique => unique))
+            return null;
+
+        var countOfNonUnique = list
+            .TakeWhile(unique => unique == false)
+            .Count();
+
+        return countOfNonUnique + 4;
     }
 
-    public static int GetResult(this IEnumerable<Thing> things) => things.Select(AsResult).Sum();
-    public static int AsResult(this Thing thing) => 0;
+    private static bool AreUnique2((char First, char Second, (char First, char Second) Third) valueTuple)
+    {
+        if (AreUnique(valueTuple.First, valueTuple.Second, valueTuple.Third)) return true;
+        return false;
+    }
+
+    private static bool AreUnique(char a, char b, (char c, char d) cd) => a!=b && a!=cd.c && a!=cd.d && b != cd.c && b != cd.d && cd.c != cd.d;
 }

@@ -5,27 +5,28 @@ namespace day6;
 
 public class D6P1Tests
 {
-    [InlineData("",null)]
+    [InlineData(@"
+mjqjpqmgbljsphdztnvjfqwrcgsmlb
+", 7)]
+    [InlineData("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 7)]
+    [InlineData("nppdvjthqldpwncqszvftbrmjlhg", 6)]
+    [InlineData("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 10)]
+    [InlineData("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 11)]
+    [InlineData("abababababababababa", null)]
+    [InlineData("abcd", 4)]
+    [InlineData("abc", null)]
     [Theory]
-    public void ParseInputLineTest(string line, Thing? expectedThing)
+    public void CalculateLengthOfPrefixAndMarkerTests(string line, int? expectedThing)
     {
-        var actualThing = line.TryParseAsThing();
-        actualThing.Should().Be(expectedThing);
-    }
-
-    [Fact]
-    public void ParseInputTest()
-    {
-        var things = Input.ExampleInput.ParseThings().ToArray();
-        things.Should().HaveCount(0);
+        var actual = line.CalculateLengthOfPrefixAndMarker();
+        actual.Should().Be(expectedThing);
     }
 
     [Fact]
     public void AcceptanceTest()
     {
-        var expected = 0;
-        var things = Input.ExampleInput.ParseThings();
-        var actual = things.GetResult();
+        var expected = 7;
+        var actual = Input.ExampleInput.CalculateLengthOfPrefixAndMarker();
         actual.Should().Be(expected);
     }
 }
