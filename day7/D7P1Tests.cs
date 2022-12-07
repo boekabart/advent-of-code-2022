@@ -71,19 +71,28 @@ public class D7P1Tests
         var sizes = paths.GetDirectorySizes();
         var actual = sizes.GetResult();
         actual.Should().Be(expected);
-    }//1486590
+    }
 
     [Fact]
     public void NotAcceptanceTest()
     {
         var notExpected = 1486590; //Wrong answer
-        var expected = 1583951;
         var things = Input.RawInput.ParseThings();
         var paths = things.ExpandPaths();
         var sizes = paths.GetDirectorySizes();
         var actual = sizes.GetResult();
         actual.Should().NotBe(notExpected);
-        actual.Should().Be(expected);
     }
 
+
+    [Fact]
+    public void MyAcceptanceTest()
+    {
+        var expected = 1583951;
+        var things = Input.RawInput.ParseThings();
+        var paths = things.ExpandPaths();
+        var sizes = paths.GetDirectorySizes();
+        var actual = sizes.GetResult();
+        actual.Should().Be(expected);
+    }
 }
