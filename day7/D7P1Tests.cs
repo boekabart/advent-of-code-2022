@@ -26,10 +26,10 @@ public class D7P1Tests
     }
 
     [InlineData("/", "/", "/")]
-    [InlineData("/", "a.txt", "/a.txt")]
-    [InlineData("/b", "a.txt", "/b/a.txt")]
-    [InlineData("/b", "..", "/")]
-    [InlineData("/b/c", "..", "/b")]
+    [InlineData("/", "a", "/a/")]
+    [InlineData("/b/", "a", "/b/a/")]
+    [InlineData("/b/", "..", "/")]
+    [InlineData("/b/c/", "..", "/b/")]
     [Theory]
     public void PathCombineTests(string root, string relative, string expected)
     {
@@ -48,6 +48,8 @@ public class D7P1Tests
     {
         var things = Input.ExampleInput.ParseThings().ExpandPaths().ToArray();
         things.Should().HaveCount(14);
+        things.OfType<Dir>().Should().AllSatisfy(dir => dir.Path.Should().EndWith("/"));
+        things.OfType<File>().Should().AllSatisfy(file => file.Path.Should().NotEndWith("/"));
     }
 
     [Fact]
@@ -58,7 +60,7 @@ public class D7P1Tests
         things.Should().HaveCount(4);
         things[0].Dir.Path.Should().Be("/");
         things[0].TotalSize.Should().Be(48381165);
-        things[1].Dir.Path.Should().Be("/a");
+        things[1].Dir.Path.Should().Be("/a/");
         things[1].TotalSize.Should().Be(94853);
     }
 

@@ -47,27 +47,31 @@ internal static class D7P1
         var currentDir = "/";
         foreach (var item in src)
         {
-            var path = PathCombine(currentDir, item.Path!);
             if (item is Cd)
             {
+                var path = PathCombine(currentDir, item.Path!);
                 currentDir = path;
                 if (dirs.Add(path))
                     yield return new Dir(path);
             }
             else if (item is File)
             {
+                var path = currentDir + item.Path!;
                 yield return new File(path, item.Size);
             }
-           }
+        }
     }
 
-    internal static string PathCombine(this string basis, string relative)
+    internal static string PathCombine(this string basis, string relativeDir)
     {
-        var pathCombine = Path.Combine(basis, relative);
+        var pathCombine = basis + relativeDir + "/";
         var full = Path.GetFullPath(pathCombine);
-        var root = Path.GetPathRoot(full);
-        var kindaFull = full.Replace(root, "/");
-        return kindaFull.Replace("\\", "/");
+        var root = Path.GetPathRoot(full)!;
+        var kindaFull = full
+            .Replace(root, "/")
+            .Replace("\\", "/")
+            .Replace("//", "/");
+        return kindaFull;
     }
 
     public static IEnumerable<(Dir Dir, long TotalSize)> GetDirectorySizes(this IEnumerable<IFileSystemEntry> src)
@@ -75,17 +79,13 @@ internal static class D7P1
         return src.OfType<Dir>()
             .Select(d => (d, src
                 .OfType<File>()
-                .Where(f => IsPartOf(f,d))
+                .Where(f => IsPartOf(f, d))
                 .Sum(f => f.Size.Value)));
     }
 
-    private static bool IsPartOf(File file, Dir ir)
-    {
-        //return file.Path.StartsWith(ir.Path);
-        return ir.Path == "/" || file.Path.StartsWith(ir.Path + "/");
-    }
+    private static bool IsPartOf(File file, Dir ir) => file.Path.StartsWith(ir.Path);
 
     public static long GetResult(this IEnumerable<(Dir Dir, long TotalSize)> things) => things
-        .Where( pair => pair.TotalSize<=100000)
-        .Sum( pair => pair.TotalSize);
+        .Where(pair => pair.TotalSize <= 100000)
+        .Sum(pair => pair.TotalSize);
 }
