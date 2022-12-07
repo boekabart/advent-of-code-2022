@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace day7;
+﻿namespace day7;
 
 public interface IThing
 {

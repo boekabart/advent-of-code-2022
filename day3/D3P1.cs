@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace day3;
+﻿namespace day3;
 
 public record Backpack(HashSet<char> FirstCompartment, HashSet<char> SecondCompartment);
 

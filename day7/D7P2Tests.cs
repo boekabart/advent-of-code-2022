@@ -1,7 +1,6 @@
 ﻿using day3;
 using FluentAssertions;
 using Xunit;
-using Xunit.Sdk;
 
 namespace day7;
 

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace day4;
+﻿namespace day4;
 
 public record RawAssignment(int FirstSection, int LastSection);
 public record RawPairAssignment(RawAssignment FirstElveAssignment, RawAssignment SecondElveAssignment);

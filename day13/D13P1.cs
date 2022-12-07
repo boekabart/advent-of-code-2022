@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace day13;
+﻿namespace day13;
 
 public record Thing(bool Data);
 
