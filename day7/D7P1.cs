@@ -15,8 +15,6 @@ public record File(string Path, long? Size) : IFileSystemEntry;
 
 public record Cd(string Path) : IThing;
 
-public record Command() : IThing;
-
 internal static class D7P1
 {
     public static IEnumerable<IThing> ParseThings(this string input) =>
