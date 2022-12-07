@@ -5,12 +5,12 @@ namespace day7;
 
 public class D7P1Tests
 {
-    [InlineData("$ cd /", typeof(Cd), "/")]
-    [InlineData("$ cd ..", typeof(Cd), "..")]
+    [InlineData("$ cd /", typeof(CdThing), "/")]
+    [InlineData("$ cd ..", typeof(CdThing), "..")]
     [InlineData("", null)]
     [InlineData("$ ls", null)]
-    [InlineData("dir a", typeof(Dir), "a")]
-    [InlineData("14848514 b.txt", typeof(File), "b.txt", (long)14848514)]
+    [InlineData("dir a", typeof(DirThing), "a")]
+    [InlineData("14848514 b.txt", typeof(FileThing), "b.txt", (long)14848514)]
     [Theory]
     public void ParseInputLineTest(string line, Type? expectedType, string? expectedPath = null, long? expectedSize = null)
     {
@@ -48,8 +48,8 @@ public class D7P1Tests
     {
         var things = Input.ExampleInput.ParseThings().ExpandPaths().ToArray();
         things.Should().HaveCount(14);
-        things.OfType<Dir>().Should().AllSatisfy(dir => dir.Path.Should().EndWith("/"));
-        things.OfType<File>().Should().AllSatisfy(file => file.Path.Should().NotEndWith("/"));
+        things.OfType<DirThing>().Should().AllSatisfy(dir => dir.Path.Should().EndWith("/"));
+        things.OfType<FileThing>().Should().AllSatisfy(file => file.Path.Should().NotEndWith("/"));
     }
 
     [Fact]
