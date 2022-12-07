@@ -1,19 +1,27 @@
-﻿namespace day7;
+﻿using static System.String;
+
+namespace day7;
 
 public interface IThing
 {
-    string? Path => null;
-    long? Size => null;
 }
 
-public interface IFileSystemEntry : IThing
+public record DirThing(string Name) : IThing;
+public record FileThing(string Name, long Size) : IThing;
+
+public record CdRoot : IThing;
+public record CdUp : IThing;
+public record CdThing(string SubDir) : IThing;
+
+public record Directory(string Name = "")
 {
+    public List<File> Files { get; } = new();
+    public List<SubDirectory> SubDirectories { get; } = new();
 }
 
-public record DirThing(string Path) : IFileSystemEntry;
-public record FileThing(string Path, long? Size) : IFileSystemEntry;
+public record SubDirectory(string Name, Directory Parent) : Directory(Name);
 
-public record CdThing(string Path) : IThing;
+public record File(string Name, long Size, Directory Directory);
 
 internal static class D7P1
 {
@@ -26,7 +34,9 @@ internal static class D7P1
 
     public static IThing? TryParseAsThing(this string line)
     {
-        if (String.IsNullOrWhiteSpace(line)) return null;
+        if (IsNullOrWhiteSpace(line)) return null;
+        if (line.Equals("$ cd /")) return new CdRoot();
+        if (line.Equals("$ cd ..")) return new CdUp();
         if (line.StartsWith("$ cd ")) return new CdThing(line.Substring(5));
         if (line.StartsWith("$")) return null;
         if (line.StartsWith("dir ")) return new DirThing(line.Substring(4));
@@ -37,51 +47,44 @@ internal static class D7P1
         return new FileThing(split[1], size);
     }
 
-    public static IEnumerable<IFileSystemEntry> ExpandPaths(this IEnumerable<IThing> src)
-    {
-        var dirs = new HashSet<string>();
-        var currentDir = "/";
-        foreach (var item in src)
+    public static Directory CreateDirectoryTree(this IEnumerable<IThing> src) =>
+        src.Aggregate(new Directory(), (current, item) => item switch
         {
-            if (item is CdThing)
-            {
-                var path = PathCombine(currentDir, item.Path!);
-                currentDir = path;
-                if (dirs.Add(path))
-                    yield return new DirThing(path);
-            }
-            else if (item is FileThing)
-            {
-                var path = currentDir + item.Path!;
-                yield return new FileThing(path, item.Size);
-            }
-        }
-    }
+            CdUp => current.Parent(),
+            CdThing cd => current.AddDirectory(cd.SubDir),
+            CdRoot => current.Root(),
+            FileThing file => current.AddFile(file),
+            _ => current
+        }).Root();
 
-    internal static string PathCombine(this string basis, string relativeDir)
+    private static Directory AddFile(this Directory currentDir, FileThing file)
     {
-        var pathCombine = basis + relativeDir + "/";
-        var full = Path.GetFullPath(pathCombine);
-        var root = Path.GetPathRoot(full)!;
-        var kindaFull = full
-            .Replace(root, "/")
-            .Replace("\\", "/")
-            .Replace("//", "/");
-        return kindaFull;
+        currentDir.Files.Add(new(file.Name, file.Size, currentDir));
+        return currentDir;
     }
 
-    public static IEnumerable<(DirThing Dir, long TotalSize)> GetDirectorySizes(this IEnumerable<IFileSystemEntry> src)
+    internal static Directory Root(this Directory root) => root is SubDirectory dir ? dir.Parent.Root() : root;
+    internal static Directory Parent(this Directory dir) => dir is SubDirectory subDir ? subDir.Parent : dir;
+
+    internal static SubDirectory AddDirectory(this Directory parent, string name)
     {
-        return src.OfType<DirThing>()
-            .Select(d => (d, src
-                .OfType<FileThing>()
-                .Where(f => IsPartOf(f, d))
-                .Sum(f => f.Size.Value)));
+        var newDir = new SubDirectory(name, parent);
+        parent.SubDirectories.Add(newDir);
+        return newDir;
     }
 
-    private static bool IsPartOf(FileThing file, DirThing ir) => file.Path.StartsWith(ir.Path);
+    public static IEnumerable<(Directory Dir, long TotalSize)> GetDirectorySizes(this Directory root)
+    {
+        var subDirs = root.SubDirectories.SelectMany(sd => sd.GetDirectorySizes()).ToList();
+        var fileSizes = root.Files.Sum(f => f.Size);
+        var dirSizes = subDirs
+            .Where(sd => root.SubDirectories.Contains(sd.Dir))
+            .Sum(x => x.TotalSize);
+        var myItem = (root, fileSizes + dirSizes);
+        return subDirs.Prepend(myItem);
+    }
 
-    public static long GetResult(this IEnumerable<(DirThing Dir, long TotalSize)> things) => things
+    public static long GetResult(this IEnumerable<(Directory Dir, long TotalSize)> things) => things
         .Where(pair => pair.TotalSize <= 100000)
         .Sum(pair => pair.TotalSize);
 }

@@ -1,10 +1,8 @@
-﻿using day3;
-using day7;
+﻿using day7;
 
 var things = Input.RawInput.ParseThings();
-var paths = things.ExpandPaths();
-var sizes = paths.GetDirectorySizes()
-    .OrderBy(d => d.Dir.Path)
+var tree = things.CreateDirectoryTree();
+var sizes = tree.GetDirectorySizes()
     .ToList();
 var result = sizes.GetResult();
 Console.WriteLine($"The sum of directory sizes for each dir that has at most 100000 bytes is {result}");
