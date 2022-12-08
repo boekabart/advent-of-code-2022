@@ -1,23 +1,28 @@
-﻿namespace day8;
+﻿using shared;
+
+namespace day8;
 
 public record struct Tree(int X, int Y);
 
 internal static class D8P1
 {
-    public static int[][] ParseThings(this string input) =>
+    public static int[][] ParseTreeHeightGrid(this string input) =>
         input
-            .Split(new[] {'\n'})
-            .Select(s => s.Trim())
-            .Select(TryParseAsThing)
-            .OfType<int[]>()
+            .TrimmedLines()
+            .Select(ParseAsLineOfTreeHeights)
+            .Where(h => h.Length>0)
             .ToArray();
 
-    public static int[]? TryParseAsThing(this string line)
+    public static int[] ParseAsLineOfTreeHeights(this string line)
     {
-        if (string.IsNullOrWhiteSpace(line))
-            return null;
         return line.Select(ch =>
-            ch switch { >= '0' and <= '9' => ch - '0', _ => throw new InvalidOperationException($"Not a number {ch}") }).ToArray();
+                ch switch
+                {
+                    >= '0' and <= '9' => ch - '0',
+                    _ => -1
+                })
+            .Where(h => h >= 0)
+            .ToArray();
     }
 
     public static int GetResult(this int[][] grid) => grid.TreesVisibleFromAnyDirection().Count();
@@ -26,50 +31,35 @@ internal static class D8P1
         grid.TreesVisibleFromTop()
             .Concat(grid.TreesVisibleFromBottom())
             .Concat(grid.TreesVisibleFromLeft())
-            .Concat(grid.TreesVisibleFromRight()).Distinct();
+            .Concat(grid.TreesVisibleFromRight())
+            .Distinct();
+
     public static IEnumerable<Tree> TreesVisibleFromTop(this int[][] grid) =>
-        Enumerable.Range(0, grid[0].Length).SelectMany(grid.TreesVisibleFromTop);
+        grid.ColumnSelectMany(TreesVisibleFromTop);
+
     public static IEnumerable<Tree> TreesVisibleFromBottom(this int[][] grid) =>
-        Enumerable.Range(0, grid[0].Length).SelectMany(grid.TreesVisibleFromBottom);
+        grid.ColumnSelectMany(TreesVisibleFromBottom);
+
     public static IEnumerable<Tree> TreesVisibleFromLeft(this int[][] grid) =>
-       grid.SelectMany(TreesVisibleFromLeft);
+        grid.RowSelectMany(TreesVisibleFromLeft);
+
     public static IEnumerable<Tree> TreesVisibleFromRight(this int[][] grid) =>
-        grid.SelectMany(TreesVisibleFromRight);
+        grid.RowSelectMany(TreesVisibleFromRight);
 
-    public static IEnumerable<Tree> TreesVisibleFromTop(this int[][] array, int x)
-    {
-        var max = -1;
-        var column = array.Select(row => row[x]);
-        return column.Select((height, y) => Iterate(height, x, y, ref max)).OfType<Tree>();
-    }
+    public static IEnumerable<Tree> TreesVisibleFromTop(this int[] column, int x) => column
+        .Scan((int? max, int height, int y) => ReturnTreeIfHighestSoFar(height, x, y, max)).OfType<Tree>();
 
-    public static IEnumerable<Tree> TreesVisibleFromBottom(this int[][] array, int x)
-    {
-        var max = -1;
-        var column = array.Select(row => row[x]);
-        return column.Reverse().Select((height, y) => Iterate(height, x, array.Length-(y+1), ref max)).OfType<Tree>();
-    }
+    public static IEnumerable<Tree> TreesVisibleFromBottom(this int[] column, int x) => column.Reverse()
+        .Scan((int? max, int height, int y) => ReturnTreeIfHighestSoFar(height, x, column.Length - (y + 1), max))
+        .OfType<Tree>();
 
-    public static IEnumerable<Tree> TreesVisibleFromLeft(this int[] row, int y)
-    {
-        var max = -1;
-        return row.Select((height, x) => Iterate(height, x, y, ref max)).OfType<Tree>();
-    }
+    public static IEnumerable<Tree> TreesVisibleFromLeft(this int[] row, int y) => row
+        .Scan((int? max, int height, int x) => ReturnTreeIfHighestSoFar(height, x, y, max)).OfType<Tree>();
 
-    public static IEnumerable<Tree> TreesVisibleFromRight(this int[] row, int y)
-    {
-        var max = -1;
-        return row.Reverse().Select((height, x) => Iterate(height, row.Length - (x+1), y, ref max)).OfType<Tree>();
-    }
+    public static IEnumerable<Tree> TreesVisibleFromRight(this int[] row, int y) => row.Reverse()
+        .Scan((int? max, int height, int x) => ReturnTreeIfHighestSoFar(height, row.Length - (x + 1), y, max))
+        .OfType<Tree>();
 
-    public static Tree? Iterate(int height, int x, int y, ref int max)
-    {
-        if (height > max)
-        {
-            max = height;
-            return new Tree(x, y);
-        }
-
-        return null;
-    }
+    public static (Tree? Tree, int? Max) ReturnTreeIfHighestSoFar(int height, int x, int y, int? max) =>
+        !max.HasValue || height > max.Value ? (new Tree(x, y), height) : (null, max);
 }

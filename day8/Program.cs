@@ -1,6 +1,6 @@
 ﻿using day8;
 
-var things = Input.RawInput.ParseThings();
+var things = Input.RawInput.ParseTreeHeightGrid();
 var result = things.GetResult();
 Console.WriteLine($"The number of trees visible from any direction is {result}");
 var bestScore = things.GetBestScenicScore();

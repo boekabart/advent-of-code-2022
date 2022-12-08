@@ -6,18 +6,18 @@ namespace day8;
 public class D8P1Tests
 {
     [InlineData("30373", new[]{3,0,3,7,3})]
-    [InlineData("", null)]
+    [InlineData("", new int[0])]
     [Theory]
     public void ParseInputLineTest(string line, int[]? expectedThing)
     {
-        var actualThing = line.TryParseAsThing();
+        var actualThing = line.ParseAsLineOfTreeHeights();
         actualThing.Should().BeEquivalentTo(expectedThing);
     }
 
     [Fact]
     public void ParseInputTest()
     {
-        var things = Input.ExampleInput.ParseThings().ToArray();
+        var things = Input.ExampleInput.ParseTreeHeightGrid().ToArray();
         things.Should().HaveCount(5);
         things.Should().AllSatisfy(row => row.Length.Should().Be(5));
     }
@@ -26,7 +26,7 @@ public class D8P1Tests
     public void AcceptanceTest()
     {
         var expected = 21;
-        var things = Input.ExampleInput.ParseThings();
+        var things = Input.ExampleInput.ParseTreeHeightGrid();
         var actual = things.GetResult();
         actual.Should().Be(expected);
     }
