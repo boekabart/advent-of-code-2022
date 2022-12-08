@@ -9,10 +9,7 @@ public static class D4P2Tests
     public static void AcceptanceTest()
     {
         var expected = 4;
-        var things = Input.ExampleInput.ParsePairAssignments();
-        var expandedThings = things.Select(r => r.Expand());
-
-        var actual = expandedThings.GetNumberOfOverlappingPairs();
+        var actual = Input.ExampleInput.Part2Answer();
         actual.Should().Be(expected);
     }
 
@@ -20,10 +17,8 @@ public static class D4P2Tests
     public static void RegressionTest()
     {
         var expected = 806;
-        var things = Input.RawInput.ParsePairAssignments();
-        var expandedThings = things.Select(r => r.Expand());
 
-        var actual = expandedThings.GetNumberOfOverlappingPairs();
+        var actual = Input.RawInput.Part2Answer();
         actual.Should().Be(expected);
     }
 }

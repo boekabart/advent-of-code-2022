@@ -8,6 +8,12 @@ public record PairAssignment(IEnumerable<int> FirstElfAssignment, IEnumerable<in
 
 internal static class D4P1
 {
+    public static int Part1Answer(this string input) =>
+        input
+            .ParsePairAssignments()
+            .Select(r => r.Expand())
+            .GetNumberOfFullyOverlappingPairs();
+
     public static IEnumerable<RawPairAssignment> ParsePairAssignments(this string input) =>
         input
             .Lines()
