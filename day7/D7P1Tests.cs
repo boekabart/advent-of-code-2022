@@ -85,7 +85,7 @@ public static class D7P1Tests
     }
 
     [Fact]
-    public static void NotAcceptanceTest()
+    public static void DontRepeatYourMistakeTest()
     {
         var notExpected = 1486590; //Wrong answer
         var things = Input.RawInput.ParseThings();
@@ -95,9 +95,8 @@ public static class D7P1Tests
         actual.Should().NotBe(notExpected);
     }
 
-
     [Fact]
-    public static void MyAcceptanceTest()
+    public static void RegressionTest()
     {
         var expected = 1583951;
         var things = Input.RawInput.ParseThings();

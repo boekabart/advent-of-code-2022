@@ -24,4 +24,15 @@ public static class D7P2Tests
         var actual = sizes.GetSizeOfSmallestDirNeededToGetEnoughSpace();
         actual.Should().Be(expected);
     }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        var expected = 214171;
+        var things = Input.RawInput.ParseThings();
+        var paths = things.CreateDirectoryTree();
+        var sizes = paths.GetDirectorySizes().ToArray();
+        var actual = sizes.GetSizeOfSmallestDirNeededToGetEnoughSpace();
+        actual.Should().Be(expected);
+    }
 }
