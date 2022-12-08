@@ -19,7 +19,7 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
     [Theory]
     public void CalculateLengthOfPrefixAndMarker14Tests(string line, int? expectedThing)
     {
-        var actual = line.CalculateLengthOfPrefixAndMarker14(14);
+        var actual = line.CalculateLengthOfPrefixAndMarker(14);
         actual.Should().Be(expectedThing);
     }
 
@@ -27,7 +27,7 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
     public void AcceptanceTest()
     {
         var expected = 19;
-        var actual = Input.ExampleInput.CalculateLengthOfPrefixAndMarker14(14);
+        var actual = Input.ExampleInput.CalculateLengthOfPrefixAndMarker(14);
         actual.Should().Be(expected);
     }
 }

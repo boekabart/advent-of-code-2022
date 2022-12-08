@@ -1,19 +1,22 @@
-﻿namespace day6;
+﻿using shared;
+
+namespace day6;
 
 internal static class D3P2
 {
-    public static int? CalculateLengthOfPrefixAndMarker14(this string input, int numberOfUniqueCharactersToLookFor) =>
+    public static int? CalculateLengthOfPrefixAndMarker(this string input, int numberOfUniqueCharactersToLookFor) =>
         input
-            .Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries)[0]
-            .Trim()
+            .NotEmptyTrimmedLines()
+            .First()
             .CalculateLengthOfPrefixAndMarkerOnTrimmedString(numberOfUniqueCharactersToLookFor);
 
-    private static int? CalculateLengthOfPrefixAndMarkerOnTrimmedString(this string input, int numberOfUniqueCharactersToLookFor)
+    public static int? CalculateLengthOfPrefixAndMarkerOnTrimmedString(this string input,
+        int numberOfUniqueCharactersToLookFor)
     {
         if (input.Length < numberOfUniqueCharactersToLookFor)
             return null;
 
-        var list = Enumerable.Range(0, input.Length - numberOfUniqueCharactersToLookFor)
+        var list = Enumerable.Range(0, 1 + input.Length - numberOfUniqueCharactersToLookFor)
             .Select(i => input.Skip(i).Take(numberOfUniqueCharactersToLookFor))
             .Select(AreUnique)
             .ToList();
@@ -28,8 +31,5 @@ internal static class D3P2
         return countOfNonUnique + numberOfUniqueCharactersToLookFor;
     }
 
-    private static bool AreUnique(IEnumerable<char> arg)
-    {
-        return arg.Distinct().Count() == arg.Count();
-    }
+    private static bool AreUnique(IEnumerable<char> arg) => arg.AreDistinct();
 }
