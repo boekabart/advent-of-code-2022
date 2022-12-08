@@ -10,7 +10,7 @@ public enum Move
     Scissors = 3,
 }
 
-record Round(Move Opponent, Move You);
+internal record Round(Move Opponent, Move You);
 
 public enum Result
 {

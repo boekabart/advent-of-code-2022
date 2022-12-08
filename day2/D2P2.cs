@@ -2,7 +2,7 @@
 
 namespace day2;
 
-record Prediction(Move Opponent, Result Result);
+internal record Prediction(Move Opponent, Result Result);
 
 internal static class D2P2
 {

@@ -1,6 +1,6 @@
 ﻿namespace day2;
 
-static class Input
+internal static class Input
 {
     public static string ExampleInput = @"
 A Y

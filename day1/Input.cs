@@ -1,6 +1,6 @@
 ﻿namespace day1;
 
-static class Input
+internal static class Input
 {
     public const string ExampleInput = @"
 1000
