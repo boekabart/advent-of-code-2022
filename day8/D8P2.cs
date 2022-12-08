@@ -2,8 +2,11 @@ using shared;
 
 namespace day8;
 
-internal static class D3P2
+internal static class D8P2
 {
+    public static int Part2Answer(this string input) =>
+        0;
+
     public static IEnumerable<Tree> AllInnerTrees(this int[][] grid) =>
         Enumerable.Range(1, grid.Length - 2)
             .SelectMany(y => Enumerable

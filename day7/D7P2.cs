@@ -1,7 +1,10 @@
 ﻿namespace day7;
 
-internal static class D3P2
+internal static class D7P2
 {
+    public static int Part2Answer(this string input) =>
+        0;
+
     public static long GetFreeDiskSpace(this IEnumerable<(Directory Dir, long TotalSize)> dirs)
     {
         long totalDiskSpace = 70000000;

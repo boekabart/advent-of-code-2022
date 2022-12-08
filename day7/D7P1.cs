@@ -26,6 +26,9 @@ public record File(string Name, long Size, Directory Directory);
 
 internal static class D7P1
 {
+    public static int Part1Answer(this string input) =>
+        0;
+
     public static IEnumerable<IThing> ParseThings(this string input) =>
         input
             .TrimmedLines()

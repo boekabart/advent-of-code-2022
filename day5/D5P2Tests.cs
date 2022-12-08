@@ -9,21 +9,15 @@ public static class D5P2Tests
     public static void AcceptanceTest()
     {
         var expected = "MCD";
-        var stacks = Input.ExampleInput.ParseBoxes().AsStacks();
-        var program = Input.ExampleInput.ParseProgram();
-        var newStacks = program.Execute9001(stacks);
-        var actual = newStacks.TopCrates();
-        actual.Should().Be(expected);
+        Input.ExampleInput.Part2Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
         var expected = "ZFSJBPRFP";
-        var stacks = Input.RawInput.ParseBoxes().AsStacks();
-        var program = Input.RawInput.ParseProgram();
-        var newStacks = program.Execute9001(stacks);
-        var actual = newStacks.TopCrates();
-        actual.Should().Be(expected);
+        Input.RawInput.Part2Answer()
+            .Should().Be(expected);
     }
 }

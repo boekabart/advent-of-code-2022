@@ -127,21 +127,15 @@ public static class D5P1Tests
     public static void AcceptanceTest()
     {
         var expected = "CMZ";
-        var stacks = Input.ExampleInput.ParseBoxes().AsStacks();
-        var program = Input.ExampleInput.ParseProgram();
-        var newStacks = program.Execute(stacks);
-        var actual = newStacks.TopCrates();
-        actual.Should().Be(expected);
+        Input.ExampleInput.Part1Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
         var expected = "SPFMVDTZT";
-        var stacks = Input.RawInput.ParseBoxes().AsStacks();
-        var program = Input.RawInput.ParseProgram();
-        var newStacks = program.Execute(stacks);
-        var actual = newStacks.TopCrates();
-        actual.Should().Be(expected);
+        Input.RawInput.Part1Answer()
+            .Should().Be(expected);
     }
 }

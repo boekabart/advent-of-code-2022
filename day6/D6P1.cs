@@ -4,6 +4,9 @@ namespace day6;
 
 internal static class D6P1
 {
+    public static int Part1Answer(this string input) =>
+        0;
+
     public static int? CalculateLengthOfPrefixAndMarker(this string input) =>
         input.CalculateLengthOfPrefixAndMarker(4);
 

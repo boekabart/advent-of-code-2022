@@ -7,6 +7,14 @@ public record ProgramStep(int NumberOfBoxes, int FromStack, int ToStack);
 
 internal static class D5P1
 {
+    public static string Part1Answer(this string input) =>
+        input
+            .ParseProgram()
+            .Execute(input
+                .ParseBoxes()
+                .AsStacks())
+            .TopCrates();
+
     private static readonly Regex BoxesRegex = new(@"^((\[\w\]|   ) )*(\[\w\]|   )$", RegexOptions.Compiled);
 
     public static List<char?>? TryParseLineOfBoxes(this string line)

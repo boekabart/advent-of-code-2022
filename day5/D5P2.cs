@@ -1,7 +1,15 @@
 ﻿namespace day5;
 
-internal static class D3P2
+internal static class D5P2
 {
+    public static string Part2Answer(this string input) =>
+        input
+            .ParseProgram()
+            .Execute9001(input
+                .ParseBoxes()
+                .AsStacks())
+            .TopCrates();
+
     public static List<Stack<char>> Execute9001(this IEnumerable<ProgramStep> program, List<Stack<char>> stacks) =>
         program.Aggregate(stacks, Execute9001);
 

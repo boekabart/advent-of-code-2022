@@ -6,6 +6,9 @@ public record struct Tree(int X, int Y);
 
 internal static class D8P1
 {
+    public static int Part1Answer(this string input) =>
+        0;
+
     public static int[][] ParseTreeHeightGrid(this string input) =>
         input
             .TrimmedLines()
