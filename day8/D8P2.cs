@@ -1,5 +1,3 @@
-﻿using day8;
-
 namespace day8;
 
 internal static class D3P2
