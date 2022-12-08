@@ -6,6 +6,12 @@ record Prediction(Move Opponent, Result Result);
 
 internal static class D2P2
 {
+    public static int Part2Answer(this string input) =>
+        input
+            .ParsePredictions()
+            .MapToRounds()
+            .GetTotalScore();
+
     public static IEnumerable<Prediction> ParsePredictions(this string input) =>
         input.Split('\n').Select(TryParsePrediction).OfType<Prediction>();
 

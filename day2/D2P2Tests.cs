@@ -39,22 +39,20 @@ public static class D2P2Tests
     [Fact]
     public static void AcceptanceTest()
     {
+        var expected = 12;
         Input
             .ExampleInput
-            .ParsePredictions()
-            .MapToRounds()
-            .GetTotalScore()
-            .Should().Be(12);
+            .Part2Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
+        var expected = 15702;
         Input
             .RawStrategyList
-            .ParsePredictions()
-            .MapToRounds()
-            .GetTotalScore()
-            .Should().Be(15702);
+            .Part2Answer()
+            .Should().Be(expected);
     }
 }

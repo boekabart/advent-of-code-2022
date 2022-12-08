@@ -22,6 +22,11 @@ public enum Result
 
 internal static class D2P1
 {
+    public static int Part1Answer(this string input) =>
+        input
+            .ParseRounds()
+            .GetTotalScore();
+
     public static int Score(this Move move) => (int) move;
     public static int Score(this Result result) => (int) result;
 
@@ -61,7 +66,7 @@ internal static class D2P1
     private static Move? TryParseYourMove(string c) =>
         c switch {"X" => Move.Rock, "Y" => Move.Paper, "Z" => Move.Scissors, _ => null};
 
-    public static IEnumerable<Round> ParseRounds(string input) =>
+    public static IEnumerable<Round> ParseRounds(this string input) =>
         input.TrimmedLines()
             .Select(TryParseRound)
             .OfType<Round>();
