@@ -2,6 +2,12 @@
 
 static class Input
 {
+    public static string ExampleInput = @"
+A Y
+B X
+C Z
+";
+
     public static string RawStrategyList => @"
 B Z
 B Z
