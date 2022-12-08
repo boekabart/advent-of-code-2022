@@ -1,6 +1,4 @@
-﻿using shared;
-
-namespace day6;
+﻿namespace day6;
 
 internal static class D6P1
 {
