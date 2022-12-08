@@ -8,8 +8,12 @@ internal static class D1P2
     public static int GetCaloriesOfHighestElves(IEnumerable<int?> input, int elveCount)
     {
         return input
-            .Aggregate(new Aggregate(), DoAggregate).GetAll().OrderByDescending( val => val).Take(elveCount).Sum();
-;
+            .Aggregate(new Aggregate(), DoAggregate)
+            .GetAll()
+            .OrderByDescending(val => val)
+            .Take(elveCount)
+            .Sum();
+        ;
     }
 
     private static IEnumerable<int> GetAll(this Aggregate? aggregate)
@@ -23,10 +27,9 @@ internal static class D1P2
 
     private static Aggregate DoAggregate(this Aggregate prev, int? number) =>
         number is null ? prev.Reset() : prev.Add(number.Value);
+
     private static Aggregate Reset(this Aggregate aggregate) => new(0, aggregate);
-    private static Aggregate Add(this Aggregate aggregate, int number)
-    {
-        var newValue = aggregate.Value + number;
-        return new(newValue,  aggregate.Previous);
-    }
+
+    private static Aggregate Add(this Aggregate aggregate, int number) =>
+        aggregate with {Value = aggregate.Value + number};
 }

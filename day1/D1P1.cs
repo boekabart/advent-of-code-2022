@@ -1,10 +1,14 @@
-﻿namespace day1;
+﻿using shared;
+
+namespace day1;
 
 internal static class D1P1
 {
     public static IEnumerable<int?> GetCalorieList(string input)
     {
-        return input.Split(new[] {'\n'}).Select( txt => int.TryParse(txt.Trim(), out var number)?(int?)number: null);
+        return input
+            .TrimmedLines()
+            .AsIntsOrNulls();
     }
 
     private record struct Aggregate(int SoFar = 0, int Max = 0);
@@ -18,7 +22,7 @@ internal static class D1P1
 
     private static Aggregate DoAggregate(this Aggregate prev, int? number) =>
         number is null ? prev.Reset() : prev.Add(number.Value);
-    private static Aggregate Reset(this Aggregate aggregate) => new(0, aggregate.Max);
+    private static Aggregate Reset(this Aggregate aggregate) => aggregate with {SoFar = 0};
     private static Aggregate Add(this Aggregate aggregate, int number)
     { 
         var newValue = aggregate.SoFar + number;
