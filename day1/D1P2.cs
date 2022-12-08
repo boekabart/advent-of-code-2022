@@ -5,16 +5,13 @@ internal static class D1P2
 
     private record Aggregate(int Value = 0, Aggregate? Previous = null);
 
-    public static int GetCaloriesOfElvesWithMostCalories(IEnumerable<int?> input, int elfCount)
-    {
-        return input
+    public static int GetCaloriesOfElvesWithMostCalories(IEnumerable<int?> input, int elfCount) =>
+        input
             .Aggregate(new Aggregate(), DoAggregate)
             .GetAll()
             .OrderByDescending(val => val)
             .Take(elfCount)
             .Sum();
-        ;
-    }
 
     private static IEnumerable<int> GetAll(this Aggregate? aggregate)
     {

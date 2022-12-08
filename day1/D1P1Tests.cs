@@ -14,7 +14,7 @@ public static class D1P1Tests
 
 3000
 ";
-        var actual = D1P1.GetCalorieList(input);
+        var actual = D1P1.GetCalorieList(input).ToArray();
         actual.Should().HaveCount(6);
         actual.Skip(1).First().Should().Be(1000);
         actual.Skip(3).First().Should().BeNull();
