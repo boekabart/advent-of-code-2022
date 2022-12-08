@@ -20,7 +20,7 @@ public static class D7P2Tests
         var expected = 24933642;
         var things = Input.ExampleInput.ParseThings();
         var paths = things.CreateDirectoryTree();
-        var sizes = paths.GetDirectorySizes();
+        var sizes = paths.GetDirectorySizes().ToArray();
         var actual = sizes.GetSizeOfSmallestDirNeededToGetEnoughSpace();
         actual.Should().Be(expected);
     }

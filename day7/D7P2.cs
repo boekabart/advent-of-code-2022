@@ -9,7 +9,7 @@ internal static class D3P2
         return totalDiskSpace - sizeOfLargestFolder;
     }
 
-    public static long GetSizeOfSmallestDirNeededToGetEnoughSpace(this IEnumerable<(Directory Dir, long TotalSize)> dirs)
+    public static long GetSizeOfSmallestDirNeededToGetEnoughSpace(this ICollection<(Directory Dir, long TotalSize)> dirs)
     {
         long neededFreeSpace = 30000000;
         var currentlyFree = dirs.GetFreeDiskSpace();
