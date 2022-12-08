@@ -1,6 +1,6 @@
-﻿namespace day25;
+﻿namespace day__;
 
-public static class D25P2
+public static class D__P2
 {
     public static object Part2Answer(this string input) =>
         new NotImplementedException();

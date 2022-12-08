@@ -1,10 +1,10 @@
 ﻿using shared;
 
-namespace day25;
+namespace day__;
 
 internal record Thing(bool Data);
 
-public static class D25P1
+public static class D__P1
 {
     public static object Part1Answer(this string input) =>
         new NotImplementedException();
