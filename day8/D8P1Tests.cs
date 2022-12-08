@@ -30,4 +30,13 @@ public static class D8P1Tests
         var actual = things.GetResult();
         actual.Should().Be(expected);
     }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        var expected = 1807;
+        var things = Input.RawInput.ParseTreeHeightGrid();
+        var actual = things.GetResult();
+        actual.Should().Be(expected);
+    }
 }

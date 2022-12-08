@@ -41,8 +41,18 @@ public static class D8P2Tests
     [Fact]
     public static void AcceptanceTest()
     {
+        var expected = 8;
         var exampleInput = Input.ExampleInput.ParseTreeHeightGrid();
         var actual = exampleInput.GetBestScenicScore();
-        actual.Should().Be(8);
+        actual.Should().Be(expected);
+    }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        var expected = 480000;
+        var exampleInput = Input.RawInput.ParseTreeHeightGrid();
+        var actual = exampleInput.GetBestScenicScore();
+        actual.Should().Be(expected);
     }
 }
