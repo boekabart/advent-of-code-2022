@@ -4,6 +4,9 @@ internal record Thing(bool Data);
 
 public static class D10P1
 {
+    public static object Part1Answer(this string input) =>
+        new NotImplementedException();
+
     internal static IEnumerable<Thing> ParseThings(this string input) =>
         input
             .Split(new[] {'\n'})

@@ -1,4 +1,4 @@
-﻿namespace day11;
+﻿namespace day9;
 
 public static class Input
 {

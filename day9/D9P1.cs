@@ -1,4 +1,6 @@
-﻿namespace day9;
+﻿using shared;
+
+namespace day9;
 
 internal record Thing(bool Data);
 
@@ -9,7 +11,7 @@ public static class D9P1
 
     internal static IEnumerable<Thing> ParseThings(this string input) =>
         input
-            .Split(new[] {'\n'})
+            .Lines()
             .Select(TryParseAsThing)
             .OfType<Thing>();
 
