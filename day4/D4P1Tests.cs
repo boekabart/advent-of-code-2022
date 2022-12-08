@@ -40,4 +40,15 @@ public static class D4P1Tests
         var actual = expandedThings.GetNumberOfFullyOverlappingPairs();
         actual.Should().Be(expected);
     }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        var expected = 413;
+        var things = Input.RawInput.ParsePairAssignments();
+        var expandedThings = things.Select(r => r.Expand());
+
+        var actual = expandedThings.GetNumberOfFullyOverlappingPairs();
+        actual.Should().Be(expected);
+    }
 }
