@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day8;
 
-public class D8P2Tests
+public static class D8P2Tests
 {
     [Fact]
     public static void TestAllInnerTrees()

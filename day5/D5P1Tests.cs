@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day5;
 
-public class D5P1Tests
+public static class D5P1Tests
 {
     [InlineData("[A] [B]    ", "AB.")]
     [InlineData("[A] [B]", "AB")]

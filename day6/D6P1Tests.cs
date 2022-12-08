@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day6;
 
-public class D6P1Tests
+public static class D6P1Tests
 {
     [InlineData(@"
 mjqjpqmgbljsphdztnvjfqwrcgsmlb

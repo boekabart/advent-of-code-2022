@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day3;
 
-public class D3P1Tests
+public static class D3P1Tests
 {
     [Fact]
     public static void ParseInputLineTest()

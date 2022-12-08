@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day2;
 
-public class D2P2Tests
+public static class D2P2Tests
 {
     private const string Input = @"
 A Y

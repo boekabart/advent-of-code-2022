@@ -4,7 +4,7 @@ using Xunit;
 
 namespace day4;
 
-public class D4P2Tests
+public static class D4P2Tests
 {
 
     [Fact]

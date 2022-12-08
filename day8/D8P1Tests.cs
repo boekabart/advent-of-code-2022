@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day8;
 
-public class D8P1Tests
+public static class D8P1Tests
 {
     [InlineData("30373", new[]{3,0,3,7,3})]
     [InlineData("", new int[0])]

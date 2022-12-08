@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day1;
 
-public class D1P1Tests
+public static class D1P1Tests
 {
     [Fact]
     public static void ParsingIsOk()

@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day7;
 
-public class D7P2Tests
+public static class D7P2Tests
 {
     [Fact]
     public static void GetFreeDiskSpaceTest()

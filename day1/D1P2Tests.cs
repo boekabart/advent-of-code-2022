@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day1;
 
-public class D1P2Tests
+public static class D1P2Tests
 {
     [Fact]
     public static void CountingIsOkFor1()

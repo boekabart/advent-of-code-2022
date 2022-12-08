@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day25;
 
-public class D25P1Tests
+public static class D25P1Tests
 {
     [InlineData("",null)]
     [Theory]

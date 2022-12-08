@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day3;
 
-public class D3P2Tests
+public static class D3P2Tests
 {
     [Fact]
     public static void AcceptanceTest()

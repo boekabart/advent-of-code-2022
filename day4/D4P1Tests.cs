@@ -3,7 +3,7 @@ using Xunit;
 
 namespace day4;
 
-public class D4P1Tests
+public static class D4P1Tests
 {
     [Fact]
     public static void ParseInputLineTest()
