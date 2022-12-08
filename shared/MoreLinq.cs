@@ -29,4 +29,8 @@ public static class MoreLinq
         var hashSet = new HashSet<TItem>();
         return items.All(hashSet.Add);
     }
+    public static IEnumerable<T[]> Buffer<T>(this IEnumerable<T> items, int bufferSize) =>
+        items.Select((item, idx) => (Item: item, Window: idx / bufferSize))
+            .GroupBy(gr => gr.Window)
+            .Select(gr => gr.Select(pair => pair.Item).ToArray());
 }
