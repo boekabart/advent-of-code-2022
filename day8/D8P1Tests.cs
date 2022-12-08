@@ -26,17 +26,17 @@ public static class D8P1Tests
     public static void AcceptanceTest()
     {
         var expected = 21;
-        var things = Input.ExampleInput.ParseTreeHeightGrid();
-        var actual = things.GetResult();
-        actual.Should().Be(expected);
+        Input.ExampleInput
+            .Part1Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
         var expected = 1807;
-        var things = Input.RawInput.ParseTreeHeightGrid();
-        var actual = things.GetResult();
-        actual.Should().Be(expected);
+        Input.RawInput
+            .Part1Answer()
+            .Should().Be(expected);
     }
 }

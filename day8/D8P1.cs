@@ -7,7 +7,9 @@ public record struct Tree(int X, int Y);
 internal static class D8P1
 {
     public static int Part1Answer(this string input) =>
-        0;
+        input
+            .ParseTreeHeightGrid()
+            .NumberOfTreesVisibleFromAnyDirection();
 
     public static int[][] ParseTreeHeightGrid(this string input) =>
         input
@@ -28,7 +30,7 @@ internal static class D8P1
             .ToArray();
     }
 
-    public static int GetResult(this int[][] grid) => grid.TreesVisibleFromAnyDirection().Count();
+    public static int NumberOfTreesVisibleFromAnyDirection(this int[][] grid) => grid.TreesVisibleFromAnyDirection().Count();
 
     public static IEnumerable<Tree> TreesVisibleFromAnyDirection(this int[][] grid) =>
         grid.TreesVisibleFromTop()
