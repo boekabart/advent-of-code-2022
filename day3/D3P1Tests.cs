@@ -11,7 +11,7 @@ public static class D3P1Tests
         var line = "ABCdef";
         var actualThing = line.TryParseAsBackpack();
         actualThing.Should().NotBeNull();
-        actualThing.FirstCompartment.Should().BeEquivalentTo(new[] { 'A', 'B', 'C' });
+        actualThing!.FirstCompartment.Should().BeEquivalentTo(new[] { 'A', 'B', 'C' });
         actualThing.SecondCompartment.Should().BeEquivalentTo(new[] { 'd', 'e', 'f' });
     }
 

@@ -1,4 +1,6 @@
-﻿namespace day3;
+﻿using shared;
+
+namespace day3;
 
 public record Backpack(HashSet<char> FirstCompartment, HashSet<char> SecondCompartment);
 
@@ -6,16 +8,18 @@ internal static class D3P1
 {
     public static IEnumerable<Backpack> ParseBackpacks(this string input) =>
         input
-            .Split(new[] { '\n' })
-            .Select(s => s.Trim())
+            .Lines()
             .Select(TryParseAsBackpack)
             .OfType<Backpack>();
 
     public static Backpack? TryParseAsBackpack(this string line)
     {
-        if (line.Length == 0 || line.Length % 2 != 0) return null;
+        if (line.Length == 0 || line.Length % 2 != 0)
+            return null;
         var half = line.Length / 2;
-        return new(line[0..half].ToHashSet(), line[half..].ToHashSet());
+        return new Backpack(
+            line[..half].ToHashSet(), 
+            line[half..].ToHashSet());
     }
 
     public static int GetResult(this IEnumerable<Backpack> things) => things.Select(AsResult).Sum();

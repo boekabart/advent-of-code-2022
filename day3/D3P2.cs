@@ -13,18 +13,11 @@ internal static class D3P2
             .Sum();
 
     public static char FindBadge(this Backpack[] group) => group
-        .Aggregate((HashSet<char>?)null, Intersect)
+        .Aggregate((HashSet<char>?) null, Intersect)
         ?.First() ?? throw new UnreachableException();
 
-    private static HashSet<char> Intersect(HashSet<char>? prev, Backpack backpack)
-    {
-        if (prev is null)
-        {
-            return backpack.AllItems();
-        }
-
-        return prev.Intersect(backpack.AllItems()).ToHashSet();
-    } 
+    private static HashSet<char> Intersect(HashSet<char>? prev, Backpack backpack) =>
+        prev is null ? backpack.AllItems() : prev.Intersect(backpack.AllItems()).ToHashSet();
 
     private static HashSet<char> AllItems(this Backpack bp) =>
         bp.FirstCompartment.Union(bp.SecondCompartment).ToHashSet();
