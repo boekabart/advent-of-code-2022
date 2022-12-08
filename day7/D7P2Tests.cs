@@ -9,7 +9,7 @@ public static class D7P2Tests
     public static void GetFreeDiskSpaceTest()
     {
         var fileSystemEntries = Input.ExampleInput.ParseThings().CreateDirectoryTree();
-        var sizes = fileSystemEntries.GetDirectorySizes().ToArray();
+        var sizes = fileSystemEntries.GetDirectorySizes();
         var actual = sizes.GetFreeDiskSpace();
         actual.Should().Be(21618835);
     }
@@ -18,21 +18,17 @@ public static class D7P2Tests
     public static void AcceptanceTest()
     {
         var expected = 24933642;
-        var things = Input.ExampleInput.ParseThings();
-        var paths = things.CreateDirectoryTree();
-        var sizes = paths.GetDirectorySizes().ToArray();
-        var actual = sizes.GetSizeOfSmallestDirNeededToGetEnoughSpace();
-        actual.Should().Be(expected);
+        Input.ExampleInput
+            .Part2Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
         var expected = 214171;
-        var things = Input.RawInput.ParseThings();
-        var paths = things.CreateDirectoryTree();
-        var sizes = paths.GetDirectorySizes().ToArray();
-        var actual = sizes.GetSizeOfSmallestDirNeededToGetEnoughSpace();
-        actual.Should().Be(expected);
+        Input.RawInput
+            .Part2Answer()
+            .Should().Be(expected);
     }
 }

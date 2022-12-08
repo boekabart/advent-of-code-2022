@@ -26,8 +26,12 @@ public record File(string Name, long Size, Directory Directory);
 
 internal static class D7P1
 {
-    public static int Part1Answer(this string input) =>
-        0;
+    public static long Part1Answer(this string input) =>
+        input
+            .ParseThings()
+            .CreateDirectoryTree()
+            .GetDirectorySizes()
+            .SumOfDirectoriesWithLessThan100000TotalBytes();
 
     public static IEnumerable<IThing> ParseThings(this string input) =>
         input
@@ -87,7 +91,7 @@ internal static class D7P1
         return subDirs.Prepend(myItem);
     }
 
-    public static long GetResult(this IEnumerable<(Directory Dir, long TotalSize)> things) => things
+    public static long SumOfDirectoriesWithLessThan100000TotalBytes(this IEnumerable<(Directory Dir, long TotalSize)> things) => things
         .Where(pair => pair.TotalSize <= 100000)
         .Sum(pair => pair.TotalSize);
 }

@@ -1,10 +1,4 @@
 ﻿using day7;
 
-var things = Input.RawInput.ParseThings();
-var tree = things.CreateDirectoryTree();
-var sizes = tree.GetDirectorySizes()
-    .ToList();
-var result = sizes.GetResult();
-Console.WriteLine($"The sum of directory sizes for each dir that has at most 100000 bytes is {result}");
-var result2 = sizes.GetSizeOfSmallestDirNeededToGetEnoughSpace();
-Console.WriteLine($"The size of the smallest directory to delete to get enough space is {result2}");
+Console.WriteLine($"The sum of directory sizes for each dir that has at most 100000 bytes is {Input.RawInput.Part1Answer()}");
+Console.WriteLine($"The size of the smallest directory to delete to get enough space is {Input.RawInput.Part2Answer()}");

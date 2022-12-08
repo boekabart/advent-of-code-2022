@@ -77,32 +77,23 @@ public static class D7P1Tests
     public static void AcceptanceTest()
     {
         var expected = 95437;
-        var things = Input.ExampleInput.ParseThings();
-        var paths = things.CreateDirectoryTree();
-        var sizes = paths.GetDirectorySizes();
-        var actual = sizes.GetResult();
-        actual.Should().Be(expected);
+        Input.ExampleInput.Part1Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void DontRepeatYourMistakeTest()
     {
         var notExpected = 1486590; //Wrong answer
-        var things = Input.RawInput.ParseThings();
-        var paths = things.CreateDirectoryTree();
-        var sizes = paths.GetDirectorySizes();
-        var actual = sizes.GetResult();
-        actual.Should().NotBe(notExpected);
+        Input.RawInput.Part1Answer()
+            .Should().NotBe(notExpected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
         var expected = 1583951;
-        var things = Input.RawInput.ParseThings();
-        var paths = things.CreateDirectoryTree();
-        var sizes = paths.GetDirectorySizes();
-        var actual = sizes.GetResult();
-        actual.Should().Be(expected);
+        Input.RawInput.Part1Answer()
+            .Should().Be(expected);
     }
 }

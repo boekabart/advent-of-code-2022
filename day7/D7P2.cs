@@ -2,8 +2,13 @@
 
 internal static class D7P2
 {
-    public static int Part2Answer(this string input) =>
-        0;
+    public static long Part2Answer(this string input) =>
+        input
+            .ParseThings()
+            .CreateDirectoryTree()
+            .GetDirectorySizes()
+            .ToArray()
+            .GetSizeOfSmallestDirNeededToGetEnoughSpace();
 
     public static long GetFreeDiskSpace(this IEnumerable<(Directory Dir, long TotalSize)> dirs)
     {
