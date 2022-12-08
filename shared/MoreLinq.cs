@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace shared;
+﻿namespace shared;
 
 public static class MoreLinq
 {
@@ -19,25 +17,6 @@ public static class MoreLinq
 
     public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> self)
         => self.Select((item, index) => (item, index));
-
-    public static IEnumerable<string> TrimmedLines(this string multiLineString) =>
-        multiLineString.Split(new[] {'\n'})
-            .Select(s => s.Trim());
-
-    public static IEnumerable<string> Lines(this string multiLineString) =>
-        multiLineString
-            .Replace("\r\n", "\n")
-            .Split(new[] { '\n' });
-
-    public static IEnumerable<string> NotEmptyLines(this string multiLineString) =>
-        multiLineString
-            .Lines()
-            .Where(s => s.Length > 0);
-
-    public static IEnumerable<string> NotEmptyTrimmedLines(this string multiLineString) =>
-        multiLineString
-            .TrimmedLines()
-            .Where(s => s.Length > 0);
 
     /// <summary>
     /// Checks whether an enumerable is completely distinct
