@@ -2,6 +2,10 @@
 
 internal static class D1P2
 {
+    public static int Part2Answer(this string input) =>
+        input
+            .GetCalorieList()
+            .GetCaloriesOfElvesWithMostCalories(3);
 
     private record Aggregate(int Value = 0, Aggregate? Previous = null);
 

@@ -25,8 +25,7 @@ public static class D1P2Tests
     public static void RegressionTest()
     {
         var expected = 204639;
-        var things = Input.RawCalorieList.GetCalorieList();
-        var actual = things.GetCaloriesOfElvesWithMostCalories(3);
+        var actual = Input.RawCalorieList.Part2Answer();
         actual.Should().Be(expected);
     }
 }
