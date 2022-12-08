@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using shared;
 
 namespace day2;
 
@@ -61,8 +62,9 @@ internal static class D2P1
         c switch {"X" => Move.Rock, "Y" => Move.Paper, "Z" => Move.Scissors, _ => null};
 
     public static IEnumerable<Round> ParseRounds(string input) =>
-        input.Split(new[] {'\n'}).Select(TryParseRound).OfType<Round>();
+        input.TrimmedLines()
+            .Select(TryParseRound)
+            .OfType<Round>();
 
     public static int GetTotalScore(this IEnumerable<Round> rounds) => rounds.Select(Score).Sum();
-
 }
