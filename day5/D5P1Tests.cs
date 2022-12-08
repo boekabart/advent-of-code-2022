@@ -133,4 +133,15 @@ public static class D5P1Tests
         var actual = newStacks.TopCrates();
         actual.Should().Be(expected);
     }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        var expected = "SPFMVDTZT";
+        var stacks = Input.RawInput.ParseBoxes().AsStacks();
+        var program = Input.RawInput.ParseProgram();
+        var newStacks = program.Execute(stacks);
+        var actual = newStacks.TopCrates();
+        actual.Should().Be(expected);
+    }
 }
