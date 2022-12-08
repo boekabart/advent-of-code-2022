@@ -77,15 +77,17 @@ public static class D7P1Tests
     public static void AcceptanceTest()
     {
         var expected = 95437;
-        Input.ExampleInput.Part1Answer()
+        Input.ExampleInput
+            .Part1Answer()
             .Should().Be(expected);
     }
 
     [Fact]
-    public static void DontRepeatYourMistakeTest()
+    public static void DoNotRepeatYourMistakeTest()
     {
         var notExpected = 1486590; //Wrong answer
-        Input.RawInput.Part1Answer()
+        Input.RawInput
+            .Part1Answer()
             .Should().NotBe(notExpected);
     }
 
@@ -93,7 +95,8 @@ public static class D7P1Tests
     public static void RegressionTest()
     {
         var expected = 1583951;
-        Input.RawInput.Part1Answer()
+        Input.RawInput
+            .Part1Answer()
             .Should().Be(expected);
     }
 }

@@ -22,10 +22,20 @@ public static class D1P2Tests
     }
 
     [Fact]
+    public static void AcceptanceTest()
+    {
+        var expected = 45000;
+        Input.ExampleInput
+            .Part2Answer()
+            .Should().Be(expected);
+    }
+
+    [Fact]
     public static void RegressionTest()
     {
         var expected = 204639;
-        var actual = Input.RawCalorieList.Part2Answer();
-        actual.Should().Be(expected);
+        Input.RawInput
+            .Part2Answer()
+            .Should().Be(expected);
     }
 }

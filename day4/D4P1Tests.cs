@@ -34,17 +34,17 @@ public static class D4P1Tests
     public static void AcceptanceTest()
     {
         var expected = 2;
-
-        var actual = Input.ExampleInput.Part1Answer();
-        actual.Should().Be(expected);
+        Input.ExampleInput
+            .Part1Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
         var expected = 413;
-
-        var actual = Input.RawInput.Part1Answer();
-        actual.Should().Be(expected);
+        Input.RawInput
+            .Part1Answer()
+            .Should().Be(expected);
     }
 }

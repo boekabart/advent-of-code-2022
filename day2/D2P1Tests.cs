@@ -45,13 +45,17 @@ public static class D2P1Tests
     public static void AcceptanceTest()
     {
         var expected = 15;
-        Input.ExampleInput.Part1Answer().Should().Be(expected);
+        Input.ExampleInput
+            .Part1Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
         var expected = 15523;
-        Input.RawStrategyList.Part1Answer().Should().Be(expected);
+        Input.RawInput
+            .Part1Answer()
+            .Should().Be(expected);
     }
 }

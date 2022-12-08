@@ -9,7 +9,8 @@ public static class D5P2Tests
     public static void AcceptanceTest()
     {
         var expected = "MCD";
-        Input.ExampleInput.Part2Answer()
+        Input.ExampleInput
+            .Part2Answer()
             .Should().Be(expected);
     }
 
@@ -17,7 +18,8 @@ public static class D5P2Tests
     public static void RegressionTest()
     {
         var expected = "ZFSJBPRFP";
-        Input.RawInput.Part2Answer()
+        Input.RawInput
+            .Part2Answer()
             .Should().Be(expected);
     }
 }

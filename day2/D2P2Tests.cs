@@ -40,8 +40,7 @@ public static class D2P2Tests
     public static void AcceptanceTest()
     {
         var expected = 12;
-        Input
-            .ExampleInput
+        Input.ExampleInput
             .Part2Answer()
             .Should().Be(expected);
     }
@@ -50,8 +49,7 @@ public static class D2P2Tests
     public static void RegressionTest()
     {
         var expected = 15702;
-        Input
-            .RawStrategyList
+        Input.RawInput
             .Part2Answer()
             .Should().Be(expected);
     }

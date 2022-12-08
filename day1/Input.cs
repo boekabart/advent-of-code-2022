@@ -2,7 +2,23 @@
 
 static class Input
 {
-    public static string RawCalorieList => @"
+    public const string ExampleInput = @"
+1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000
+";
+    public static string RawInput => @"
 5916
 7281
 1715

@@ -127,7 +127,8 @@ public static class D5P1Tests
     public static void AcceptanceTest()
     {
         var expected = "CMZ";
-        Input.ExampleInput.Part1Answer()
+        Input.ExampleInput
+            .Part1Answer()
             .Should().Be(expected);
     }
 
@@ -135,7 +136,8 @@ public static class D5P1Tests
     public static void RegressionTest()
     {
         var expected = "SPFMVDTZT";
-        Input.RawInput.Part1Answer()
+        Input.RawInput
+            .Part1Answer()
             .Should().Be(expected);
     }
 }

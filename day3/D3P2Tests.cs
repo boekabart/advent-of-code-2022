@@ -9,15 +9,17 @@ public static class D3P2Tests
     public static void AcceptanceTest()
     {
         var expected = 70;
-        var actual = Input.ExampleInput.Part2Answer();
-        actual.Should().Be(expected);
+        Input.ExampleInput
+            .Part2Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
         var expected = 2569;
-        var actual = Input.RawInput.Part2Answer();
-        actual.Should().Be(expected);
+        Input.RawInput
+            .Part2Answer()
+            .Should().Be(expected);
     }
 }

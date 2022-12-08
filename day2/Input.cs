@@ -8,7 +8,7 @@ B X
 C Z
 ";
 
-    public static string RawStrategyList => @"
+    public static string RawInput => @"
 B Z
 B Z
 C Z

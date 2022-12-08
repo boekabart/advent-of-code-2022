@@ -27,7 +27,8 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
     public static void AcceptanceTest()
     {
         var expected = 19;
-        Input.ExampleInput.Part2Answer()
+        Input.ExampleInput
+            .Part2Answer()
             .Should().Be(expected);
     }
 
@@ -35,7 +36,8 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
     public static void RegressionTest()
     {
         var expected = 2823;
-        Input.RawInput.Part2Answer()
+        Input.RawInput
+            .Part2Answer()
             .Should().Be(expected);
     }
 }
