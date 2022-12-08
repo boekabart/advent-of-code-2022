@@ -2,7 +2,7 @@
 
 static class Input
 {
-    public static string ExampleInput => @"
+    public const string ExampleInput = @"
 2-4,6-8
 2-3,4-5
 5-7,7-9
@@ -11,7 +11,7 @@ static class Input
 2-6,4-8
 ";
 
-    public static string RawInput => @"
+    public const string RawInput = @"
 8-17,16-49
 17-38,18-36
 17-43,43-43

@@ -2,7 +2,7 @@
 
 static class Input
 {
-    public static string ExampleInput => @"
+    public const string ExampleInput = @"
 vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
@@ -11,7 +11,7 @@ ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw
 ";
 
-    public static string RawInput => @"
+    public const string RawInput = @"
 WVHGHwddqSsNjsjwqVvdwZRCbcJcZTCcsZbLcJJsCZ
 hngprFFhFDFhrDpzzQDhtnBJJRJZbZvTcvbfRCJfBRcBJl
 DmptngtFwvvMmwmm

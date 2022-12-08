@@ -8,7 +8,7 @@ B X
 C Z
 ";
 
-    public static string RawInput => @"
+    public const string RawInput = @"
 B Z
 B Z
 C Z

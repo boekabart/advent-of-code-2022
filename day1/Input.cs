@@ -18,7 +18,7 @@ static class Input
 
 10000
 ";
-    public static string RawInput => @"
+    public const string RawInput = @"
 5916
 7281
 1715

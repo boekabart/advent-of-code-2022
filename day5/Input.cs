@@ -2,7 +2,7 @@
 
 static class Input
 {
-    public static string ExampleInput => @"
+    public const string ExampleInput = @"
     [D]    
 [N] [C]    
 [Z] [M] [P]
@@ -14,7 +14,7 @@ move 2 from 2 to 1
 move 1 from 1 to 2
 ";
 
-    public static string RawInput => @"
+    public const string RawInput = @"
     [H]         [D]     [P]        
 [W] [B]         [C] [Z] [D]        
 [T] [J]     [T] [J] [D] [J]        

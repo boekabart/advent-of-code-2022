@@ -2,7 +2,7 @@
 
 static class Input
 {
-    public static string ExampleInput => @"
+    public const string ExampleInput = @"
 $ cd /
 $ ls
 dir a
@@ -28,7 +28,7 @@ $ ls
 7214296 k
 ";
 
-    public static string RawInput => @"
+    public const string RawInput = @"
 $ cd /
 $ ls
 149291 cgc.vzv
