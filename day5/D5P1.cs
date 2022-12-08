@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using shared;
 
 namespace day5;
 
@@ -21,12 +22,14 @@ internal static class D5P1
 
     public static IEnumerable<List<char?>> ParseBoxes(this string input) =>
         input
-            .Split('\n', '\r')
+            .Lines()
             .Select(TryParseLineOfBoxes)
             .OfType<List<char?>>();
 
     public static List<Stack<char>> AsStacks(this IEnumerable<List<char?>> input) =>
-        input.Reverse().Aggregate(new List<Stack<char>>(), AddToStacks);
+        input
+            .Reverse()
+            .Aggregate(new List<Stack<char>>(), AddToStacks);
 
     public static List<Stack<char>> AddToStacks(List<Stack<char>> stacks, List<char?> boxes)
     {
@@ -39,11 +42,9 @@ internal static class D5P1
 
     public static IEnumerable<ProgramStep> ParseProgram(this string input) =>
         input
-            .Split(new[] { '\n' })
-            .Select(s => s.Trim())
+            .TrimmedLines()
             .Select(TryParseAsProgramStep)
             .OfType<ProgramStep>();
-
 
     private static readonly Regex ProgramRegex =
         new(@"^move (?<count>\d+) from (?<from>\d+) to (?<to>\d+)$", RegexOptions.Compiled);
@@ -77,9 +78,4 @@ internal static class D5P1
     }
 
     public static string TopCrates(this List<Stack<char>> stacks) => new(stacks.Select(s => s.Peek()).ToArray());
-
-    public static IEnumerable<T[]> Buffer<T>(this IEnumerable<T> items, int bufferSize) =>
-        items.Select((item, idx) => (Item: item, Window: idx / bufferSize))
-            .GroupBy(gr => gr.Window)
-            .Select(gr => gr.Select(pair => pair.Item).ToArray());
 }
