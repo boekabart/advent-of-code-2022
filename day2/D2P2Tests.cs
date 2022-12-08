@@ -5,16 +5,10 @@ namespace day2;
 
 public static class D2P2Tests
 {
-    private const string Input = @"
-A Y
-B X
-C Z
-";
-
     [Fact]
     public static void ParsingIsOk()
     {
-        var actual = Input.ParsePredictions().ToArray();
+        var actual = Input.ExampleInput.ParsePredictions().ToArray();
         actual.Should().HaveCount(3);
         actual.Skip(0).First().Opponent.Should().Be(Move.Rock);
         actual.Skip(1).First().Opponent.Should().Be(Move.Paper);
@@ -43,11 +37,24 @@ C Z
     }
 
     [Fact]
-    public static void GetTotalScoreIsOk()
+    public static void AcceptanceTest()
     {
-        Input.ParsePredictions()
+        Input
+            .ExampleInput
+            .ParsePredictions()
             .MapToRounds()
             .GetTotalScore()
             .Should().Be(12);
+    }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        Input
+            .RawStrategyList
+            .ParsePredictions()
+            .MapToRounds()
+            .GetTotalScore()
+            .Should().Be(15702);
     }
 }
