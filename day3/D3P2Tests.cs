@@ -14,4 +14,14 @@ public static class D3P2Tests
         var actual = groups.SumOfBadgePriorities();
         actual.Should().Be(expected);
     }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        var expected = 2569;
+        var things = Input.RawInput.ParseBackpacks();
+        var groups = things.MakeGroups();
+        var actual = groups.SumOfBadgePriorities();
+        actual.Should().Be(expected);
+    }
 }

@@ -40,4 +40,13 @@ public static class D3P1Tests
         var actual = things.GetResult();
         actual.Should().Be(expected);
     }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        var expected = 7763;
+        var things = Input.RawInput.ParseBackpacks();
+        var actual = things.GetResult();
+        actual.Should().Be(expected);
+    }
 }
