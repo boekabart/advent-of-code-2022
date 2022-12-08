@@ -27,15 +27,15 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
     public static void AcceptanceTest()
     {
         var expected = 19;
-        var actual = Input.ExampleInput.CalculateLengthOfPrefixAndMarker14();
-        actual.Should().Be(expected);
+        Input.ExampleInput.Part2Answer()
+            .Should().Be(expected);
     }
 
     [Fact]
     public static void RegressionTest()
     {
         var expected = 2823;
-        var actual = Input.RawInput.CalculateLengthOfPrefixAndMarker14();
-        actual.Should().Be(expected);
+        Input.RawInput.Part2Answer()
+            .Should().Be(expected);
     }
 }
