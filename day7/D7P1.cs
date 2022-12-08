@@ -3,28 +3,7 @@ using static System.String;
 
 namespace day7;
 
-public interface IThing
-{
-}
-
-public record DirThing(string Name) : IThing;
-public record FileThing(string Name, long Size) : IThing;
-
-public record CdRoot : IThing;
-public record CdUp : IThing;
-public record CdThing(string SubDir) : IThing;
-
-public record Directory(string Name = "")
-{
-    public List<File> Files { get; } = new();
-    public List<SubDirectory> SubDirectories { get; } = new();
-}
-
-public record SubDirectory(string Name, Directory Parent) : Directory(Name);
-
-public record File(string Name, long Size, Directory Directory);
-
-internal static class D7P1
+public static class D7P1
 {
     public static long Part1Answer(this string input) =>
         input
@@ -33,13 +12,13 @@ internal static class D7P1
             .GetDirectorySizes()
             .SumOfDirectoriesWithLessThan100000TotalBytes();
 
-    public static IEnumerable<IThing> ParseThings(this string input) =>
+    internal static IEnumerable<IThing> ParseThings(this string input) =>
         input
             .TrimmedLines()
             .Select(TryParseAsThing)
             .OfType<IThing>();
 
-    public static IThing? TryParseAsThing(this string line)
+    internal static IThing? TryParseAsThing(this string line)
     {
         if (IsNullOrWhiteSpace(line)) return null;
         if (line.Equals("$ cd /")) return new CdRoot();
@@ -54,7 +33,7 @@ internal static class D7P1
         return new FileThing(split[1], size);
     }
 
-    public static Directory CreateDirectoryTree(this IEnumerable<IThing> src) =>
+    internal static Directory CreateDirectoryTree(this IEnumerable<IThing> src) =>
         src.Aggregate(new Directory(), (current, item) => item switch
         {
             CdUp => current.Parent(),
@@ -80,7 +59,7 @@ internal static class D7P1
         return newDir;
     }
 
-    public static IEnumerable<(Directory Dir, long TotalSize)> GetDirectorySizes(this Directory root)
+    internal static IEnumerable<(Directory Dir, long TotalSize)> GetDirectorySizes(this Directory root)
     {
         var subDirs = root.SubDirectories.SelectMany(sd => sd.GetDirectorySizes()).ToList();
         var fileSizes = root.Files.Sum(f => f.Size);
@@ -91,7 +70,29 @@ internal static class D7P1
         return subDirs.Prepend(myItem);
     }
 
-    public static long SumOfDirectoriesWithLessThan100000TotalBytes(this IEnumerable<(Directory Dir, long TotalSize)> things) => things
+    internal static long SumOfDirectoriesWithLessThan100000TotalBytes(this IEnumerable<(Directory Dir, long TotalSize)> things) => things
         .Where(pair => pair.TotalSize <= 100000)
         .Sum(pair => pair.TotalSize);
 }
+
+internal interface IThing {}
+
+internal record DirThing(string Name) : IThing;
+
+internal record FileThing(string Name, long Size) : IThing;
+
+internal record CdRoot : IThing;
+
+internal record CdUp : IThing;
+
+internal record CdThing(string SubDir) : IThing;
+
+internal record Directory(string Name = "")
+{
+    internal List<File> Files { get; } = new();
+    internal List<SubDirectory> SubDirectories { get; } = new();
+}
+
+internal record SubDirectory(string Name, Directory Parent) : Directory(Name);
+
+internal record File(string Name, long Size, Directory Directory);

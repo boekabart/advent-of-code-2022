@@ -2,7 +2,7 @@
 
 namespace day3;
 
-internal static class D3P2
+public static class D3P2
 {
     public static int Part2Answer(this string input) =>
         input
@@ -10,15 +10,15 @@ internal static class D3P2
             .MakeGroups()
             .SumOfBadgePriorities();
 
-    public static IEnumerable<Backpack[]> MakeGroups(this IEnumerable<Backpack> backpacks) =>
+    internal static IEnumerable<Backpack[]> MakeGroups(this IEnumerable<Backpack> backpacks) =>
         backpacks.Buffer(3);
 
-    public static int SumOfBadgePriorities(this IEnumerable<Backpack[]> groups) =>
+    internal static int SumOfBadgePriorities(this IEnumerable<Backpack[]> groups) =>
         groups.Select(FindBadge)
             .Select(badge => badge.Priority())
             .Sum();
 
-    public static char FindBadge(this Backpack[] group) => group
+    internal static char FindBadge(this Backpack[] group) => group
         .Aggregate((HashSet<char>?) null, Intersect)
         ?.First() ?? throw new UnreachableException();
 
@@ -28,7 +28,7 @@ internal static class D3P2
     private static HashSet<char> AllItems(this Backpack bp) =>
         bp.FirstCompartment.Union(bp.SecondCompartment).ToHashSet();
 
-    public static IEnumerable<T[]> Buffer<T>(this IEnumerable<T> items, int bufferSize) =>
+    internal static IEnumerable<T[]> Buffer<T>(this IEnumerable<T> items, int bufferSize) =>
         items.Select((item, idx) => (Item: item, Window: idx / bufferSize))
             .GroupBy(gr => gr.Window)
             .Select(gr => gr.Select(pair => pair.Item).ToArray());

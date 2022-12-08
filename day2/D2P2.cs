@@ -4,7 +4,7 @@ namespace day2;
 
 internal record Prediction(Move Opponent, Result Result);
 
-internal static class D2P2
+public static class D2P2
 {
     public static int Part2Answer(this string input) =>
         input
@@ -12,10 +12,10 @@ internal static class D2P2
             .MapToRounds()
             .GetTotalScore();
 
-    public static IEnumerable<Prediction> ParsePredictions(this string input) =>
+    internal static IEnumerable<Prediction> ParsePredictions(this string input) =>
         input.Split('\n').Select(TryParsePrediction).OfType<Prediction>();
 
-    public static Prediction? TryParsePrediction(string line)
+    internal static Prediction? TryParsePrediction(string line)
     {
         var chars = line.Trim().Split(' ');
         if (chars.Length != 2) return null;
@@ -29,9 +29,9 @@ internal static class D2P2
     private static Result? TryParseResult(string c) =>
         c switch { "X" => Result.Opponent, "Y" => Result.Draw, "Z" => Result.You, _ => null };
 
-    public static IEnumerable<Round> MapToRounds(this IEnumerable<Prediction> predictions) => predictions.Select(MapToRound);
+    internal static IEnumerable<Round> MapToRounds(this IEnumerable<Prediction> predictions) => predictions.Select(MapToRound);
 
-    public static Round MapToRound(this Prediction prediction) => (prediction.Result, prediction.Opponent) switch
+    internal static Round MapToRound(this Prediction prediction) => (prediction.Result, prediction.Opponent) switch
     {
         (Result.Draw, _) => new Round(prediction.Opponent, prediction.Opponent),
         (Result.Opponent, Move.Rock) => new Round(prediction.Opponent, Move.Scissors),

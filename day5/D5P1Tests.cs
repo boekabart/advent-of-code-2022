@@ -12,7 +12,7 @@ public static class D5P1Tests
     [InlineData(" 1   2   3   4   5   6   7   8   9 ", null)]
     [InlineData("move 2 from 8 to 2", null)]
     [Theory]
-    public static void ParseLineOfBoxesTest(string line, string? expectedThing)
+    internal static void ParseLineOfBoxesTest(string line, string? expectedThing)
     {
         var actualThing = line.TryParseLineOfBoxes();
         if (expectedThing is null)
@@ -26,7 +26,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void ParseBoxesTest()
+    internal static void ParseBoxesTest()
     {
         var lines = Input.ExampleInput.ParseBoxes().ToList();
         lines.Should().HaveCount(3);
@@ -36,7 +36,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void ParseBoxesAsStacksTest()
+    internal static void ParseBoxesAsStacksTest()
     {
         var stacks = Input.ExampleInput.ParseBoxes().AsStacks();
         stacks.Should().HaveCount(3);
@@ -44,7 +44,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void AsStacksTest()
+    internal static void AsStacksTest()
     {
         var linesOfBoxes = new[]
         {
@@ -62,7 +62,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void TopCratesTest()
+    internal static void TopCratesTest()
     {
         var linesOfBoxes = new[]
         {
@@ -75,7 +75,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void ExecuteProgramStepTest()
+    internal static void ExecuteProgramStepTest()
     {
         var linesOfBoxes = new[]
         {
@@ -89,7 +89,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void ExecuteProgramTest()
+    internal static void ExecuteProgramTest()
     {
         var linesOfBoxes = new[]
         {
@@ -105,7 +105,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void TryParseAsProgramStepTest()
+    internal static void TryParseAsProgramStepTest()
     {
         var line = "move 3 from 1 to 2";
         var actual = line.TryParseAsProgramStep();
@@ -116,7 +116,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void TryParseAsProgramStepNullTest()
+    internal static void TryParseAsProgramStepNullTest()
     {
         var line = "[A] [B]   ";
         var actual = line.TryParseAsProgramStep();
@@ -124,7 +124,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void AcceptanceTest()
+    internal static void AcceptanceTest()
     {
         var expected = "CMZ";
         Input.ExampleInput
@@ -133,7 +133,7 @@ public static class D5P1Tests
     }
 
     [Fact]
-    public static void RegressionTest()
+    internal static void RegressionTest()
     {
         var expected = "SPFMVDTZT";
         Input.RawInput

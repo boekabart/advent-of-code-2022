@@ -3,7 +3,7 @@ using shared;
 
 namespace day2;
 
-public enum Move
+internal enum Move
 {
     Rock = 1,
     Paper = 2,
@@ -12,7 +12,7 @@ public enum Move
 
 internal record Round(Move Opponent, Move You);
 
-public enum Result
+internal enum Result
 {
     Opponent = 0,
     Draw = 3,
@@ -20,17 +20,17 @@ public enum Result
 }
 
 
-internal static class D2P1
+public static class D2P1
 {
     public static int Part1Answer(this string input) =>
         input
             .ParseRounds()
             .GetTotalScore();
 
-    public static int Score(this Move move) => (int) move;
-    public static int Score(this Result result) => (int) result;
+    internal static int Score(this Move move) => (int) move;
+    internal static int Score(this Result result) => (int) result;
 
-    public static Result Result(this Round round) => (round.You, round.Opponent) switch
+    internal static Result Result(this Round round) => (round.You, round.Opponent) switch
     {
         (Move.Rock, Move.Rock) => day2.Result.Draw,
         (Move.Rock, Move.Paper) => day2.Result.Opponent,
@@ -47,9 +47,9 @@ internal static class D2P1
         _ => throw new UnreachableException()
     };
 
-    public static int Score(this Round round) => round.Result().Score() + round.You.Score();
+    internal static int Score(this Round round) => round.Result().Score() + round.You.Score();
 
-    public static Round? TryParseRound(string line)
+    internal static Round? TryParseRound(string line)
     {
         var chars = line.Trim().Split(' ');
         if (chars.Length != 2) return null;
@@ -60,16 +60,16 @@ internal static class D2P1
         return null;
     }
 
-    public static Move? TryParseOpponentMove(string c) =>
+    internal static Move? TryParseOpponentMove(string c) =>
         c switch {"A" => Move.Rock, "B" => Move.Paper, "C" => Move.Scissors, _ => null};
 
     private static Move? TryParseYourMove(string c) =>
         c switch {"X" => Move.Rock, "Y" => Move.Paper, "Z" => Move.Scissors, _ => null};
 
-    public static IEnumerable<Round> ParseRounds(this string input) =>
+    internal static IEnumerable<Round> ParseRounds(this string input) =>
         input.TrimmedLines()
             .Select(TryParseRound)
             .OfType<Round>();
 
-    public static int GetTotalScore(this IEnumerable<Round> rounds) => rounds.Select(Score).Sum();
+    internal static int GetTotalScore(this IEnumerable<Round> rounds) => rounds.Select(Score).Sum();
 }

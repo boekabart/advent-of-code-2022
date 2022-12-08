@@ -6,7 +6,7 @@ namespace day8;
 public static class D8P2Tests
 {
     [Fact]
-    public static void TestAllInnerTrees()
+    internal static void TestAllInnerTrees()
     {
         var exampleInput = Input.ExampleInput.ParseTreeHeightGrid();
         var actual = exampleInput.AllInnerTrees().ToArray();
@@ -15,7 +15,7 @@ public static class D8P2Tests
     }
 
     [Fact]
-    public static void TestTree1Score()
+    internal static void TestTree1Score()
     {
         var exampleInput = Input.ExampleInput.ParseTreeHeightGrid();
         var actual = new Tree(2, 1).GetScenicScore(exampleInput);
@@ -23,7 +23,7 @@ public static class D8P2Tests
     }
 
     [Fact]
-    public static void TestTree2Score()
+    internal static void TestTree2Score()
     {
         var exampleInput = Input.ExampleInput.ParseTreeHeightGrid();
         var actual = new Tree(2, 3).GetScenicScore(exampleInput);
@@ -31,7 +31,7 @@ public static class D8P2Tests
     }
 
     [Fact]
-    public static void TestTopTreeScore()
+    internal static void TestTopTreeScore()
     {
         var exampleInput = Input.ExampleInput.ParseTreeHeightGrid();
         var actual = new Tree(2, 0).GetScenicScore(exampleInput);
@@ -39,7 +39,7 @@ public static class D8P2Tests
     }
 
     [Fact]
-    public static void AcceptanceTest()
+    internal static void AcceptanceTest()
     {
         var expected = 8;
         Input.ExampleInput
@@ -48,7 +48,7 @@ public static class D8P2Tests
     }
 
     [Fact]
-    public static void RegressionTest()
+    internal static void RegressionTest()
     {
         var expected = 480000;
         Input.RawInput

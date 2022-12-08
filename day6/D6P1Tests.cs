@@ -16,14 +16,14 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
     [InlineData("abcd", 4)]
     [InlineData("abc", null)]
     [Theory]
-    public static void CalculateLengthOfPrefixAndMarkerTests(string line, int? expectedThing)
+    internal static void CalculateLengthOfPrefixAndMarkerTests(string line, int? expectedThing)
     {
         var actual = line.CalculateLengthOfPrefixAndMarker();
         actual.Should().Be(expectedThing);
     }
 
     [Fact]
-    public static void AcceptanceTest()
+    internal static void AcceptanceTest()
     {
         var expected = 7;
         Input.ExampleInput
@@ -32,7 +32,7 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
     }
 
     [Fact]
-    public static void RegressionTest()
+    internal static void RegressionTest()
     {
         var expected = 1850;
         Input.RawInput

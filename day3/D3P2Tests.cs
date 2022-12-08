@@ -6,7 +6,7 @@ namespace day3;
 public static class D3P2Tests
 {
     [Fact]
-    public static void AcceptanceTest()
+    internal static void AcceptanceTest()
     {
         var expected = 70;
         Input.ExampleInput
@@ -15,7 +15,7 @@ public static class D3P2Tests
     }
 
     [Fact]
-    public static void RegressionTest()
+    internal static void RegressionTest()
     {
         var expected = 2569;
         Input.RawInput

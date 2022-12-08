@@ -2,14 +2,14 @@
 
 namespace day1;
 
-internal static class D1P1
+public static class D1P1
 {
     public static int Part1Answer(this string input) =>
         input
             .GetCalorieList()
             .GetCaloriesOfElfWithMostCalories();
 
-    public static IEnumerable<int?> GetCalorieList(this string input)
+    internal static IEnumerable<int?> GetCalorieList(this string input)
     {
         return input
             .TrimmedLines()
@@ -18,7 +18,7 @@ internal static class D1P1
 
     private record struct Aggregate(int SoFar = 0, int Max = 0);
 
-    public static int GetCaloriesOfElfWithMostCalories(this IEnumerable<int?> input)
+    internal static int GetCaloriesOfElfWithMostCalories(this IEnumerable<int?> input)
     {
         return input
             .Aggregate(new Aggregate(), DoAggregate)

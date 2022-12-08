@@ -6,7 +6,7 @@ namespace day4;
 public static class D4P2Tests
 {
     [Fact]
-    public static void AcceptanceTest()
+    internal static void AcceptanceTest()
     {
         var expected = 4;
         Input.ExampleInput
@@ -15,7 +15,7 @@ public static class D4P2Tests
     }
 
     [Fact]
-    public static void RegressionTest()
+    internal static void RegressionTest()
     {
         var expected = 806;
 

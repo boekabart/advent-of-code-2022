@@ -13,7 +13,7 @@ public static class D7P1Tests
     [InlineData("dir a", typeof(DirThing), "a")]
     [InlineData("14848514 b.txt", typeof(FileThing), "b.txt", (long)14848514)]
     [Theory]
-    public static void ParseInputLineTest(string line, Type? expectedType, string? expectedPath = null, long? expectedSize = null)
+    internal static void ParseInputLineTest(string line, Type? expectedType, string? expectedPath = null, long? expectedSize = null)
     {
         var actualThing = line.TryParseAsThing();
         if (expectedType is null)
@@ -41,13 +41,13 @@ public static class D7P1Tests
     };
     
     [Fact]
-    public static void ParseInputTest()
+    internal static void ParseInputTest()
     {
         var things = Input.ExampleInput.ParseThings().ToArray();
         things.Should().HaveCount(19);
     }
     [Fact]
-    public static void ParseInputAndCreateDirectoryTreeTest()
+    internal static void ParseInputAndCreateDirectoryTreeTest()
     {
         var tree = Input.ExampleInput.ParseThings().CreateDirectoryTree();
         tree.Name.Should().BeEmpty();
@@ -58,7 +58,7 @@ public static class D7P1Tests
     }
 
     [Fact]
-    public static void ParseInputAndExpandAndGetSizesTest()
+    internal static void ParseInputAndExpandAndGetSizesTest()
     {
         var fileSystemEntries = Input.ExampleInput.ParseThings().CreateDirectoryTree();
         var things = fileSystemEntries.GetDirectorySizes().ToArray();
@@ -74,7 +74,7 @@ public static class D7P1Tests
     }
 
     [Fact]
-    public static void AcceptanceTest()
+    internal static void AcceptanceTest()
     {
         var expected = 95437;
         Input.ExampleInput
@@ -83,7 +83,7 @@ public static class D7P1Tests
     }
 
     [Fact]
-    public static void DoNotRepeatYourMistakeTest()
+    internal static void DoNotRepeatYourMistakeTest()
     {
         var notExpected = 1486590; //Wrong answer
         Input.RawInput
@@ -92,7 +92,7 @@ public static class D7P1Tests
     }
 
     [Fact]
-    public static void RegressionTest()
+    internal static void RegressionTest()
     {
         var expected = 1583951;
         Input.RawInput

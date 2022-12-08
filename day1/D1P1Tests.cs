@@ -6,7 +6,7 @@ namespace day1;
 public static class D1P1Tests
 {
     [Fact]
-    public static void ParsingIsOk()
+    internal static void ParsingIsOk()
     {
         var input = @"
 1000
@@ -21,7 +21,7 @@ public static class D1P1Tests
     }
 
     [Fact]
-    public static void CountingIsOk()
+    internal static void CountingIsOk()
     {
         var input = new int?[] {1000, 2000, null, 6000, 1000, null, 4000, 2000, 100};
         var actual = input.GetCaloriesOfElfWithMostCalories();
@@ -29,7 +29,7 @@ public static class D1P1Tests
     }
 
     [Fact]
-    public static void AcceptanceTest()
+    internal static void AcceptanceTest()
     {
         var expected = 24000;
         Input.ExampleInput
@@ -38,7 +38,7 @@ public static class D1P1Tests
     }
 
     [Fact]
-    public static void RegressionTest()
+    internal static void RegressionTest()
     {
         var expected = 71124;
         Input.RawInput

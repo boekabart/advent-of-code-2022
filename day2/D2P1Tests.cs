@@ -6,7 +6,7 @@ namespace day2;
 public static class D2P1Tests
 {
     [Fact]
-    public static void ParsingIsOk()
+    internal static void ParsingIsOk()
     {
         var actual = Input.ExampleInput.ParseRounds().ToArray();
         actual.Should().HaveCount(3);
@@ -19,7 +19,7 @@ public static class D2P1Tests
     }
 
     [Fact]
-    public static void GetRawScoreIsOk()
+    internal static void GetRawScoreIsOk()
     {
         var rounds = Input.ExampleInput.ParseRounds().ToArray();
         rounds[0].You.Score().Should().Be(2);
@@ -33,7 +33,7 @@ public static class D2P1Tests
     }
 
     [Fact]
-    public static void GetScoreIsOk()
+    internal static void GetScoreIsOk()
     {
         var rounds = Input.ExampleInput.ParseRounds().ToArray();
         rounds[0].Score().Should().Be(8);
@@ -42,7 +42,7 @@ public static class D2P1Tests
     }
 
     [Fact]
-    public static void AcceptanceTest()
+    internal static void AcceptanceTest()
     {
         var expected = 15;
         Input.ExampleInput
@@ -51,7 +51,7 @@ public static class D2P1Tests
     }
 
     [Fact]
-    public static void RegressionTest()
+    internal static void RegressionTest()
     {
         var expected = 15523;
         Input.RawInput

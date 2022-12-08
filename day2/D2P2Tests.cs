@@ -6,7 +6,7 @@ namespace day2;
 public static class D2P2Tests
 {
     [Fact]
-    public static void ParsingIsOk()
+    internal static void ParsingIsOk()
     {
         var actual = Input.ExampleInput.ParsePredictions().ToArray();
         actual.Should().HaveCount(3);
@@ -28,7 +28,7 @@ public static class D2P2Tests
     [InlineData(Result.Opponent, Move.Paper)]
     [InlineData(Result.Opponent, Move.Scissors)]
     [Theory]
-    public static void HinUndHer( Result result, Move opponentMove)
+    internal static void HinUndHer( Result result, Move opponentMove)
     {
         new Prediction(opponentMove, result)
             .MapToRound()
@@ -37,7 +37,7 @@ public static class D2P2Tests
     }
 
     [Fact]
-    public static void AcceptanceTest()
+    internal static void AcceptanceTest()
     {
         var expected = 12;
         Input.ExampleInput
@@ -46,7 +46,7 @@ public static class D2P2Tests
     }
 
     [Fact]
-    public static void RegressionTest()
+    internal static void RegressionTest()
     {
         var expected = 15702;
         Input.RawInput
