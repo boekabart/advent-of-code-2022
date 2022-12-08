@@ -6,7 +6,7 @@ namespace day5;
 public class D5P2Tests
 {
     [Fact]
-    public void AcceptanceTest()
+    public static void AcceptanceTest()
     {
         var expected = "MCD";
         var stacks = Input.ExampleInput.ParseBoxes().AsStacks();

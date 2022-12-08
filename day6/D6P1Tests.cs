@@ -16,14 +16,14 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
     [InlineData("abcd", 4)]
     [InlineData("abc", null)]
     [Theory]
-    public void CalculateLengthOfPrefixAndMarkerTests(string line, int? expectedThing)
+    public static void CalculateLengthOfPrefixAndMarkerTests(string line, int? expectedThing)
     {
         var actual = line.CalculateLengthOfPrefixAndMarker();
         actual.Should().Be(expectedThing);
     }
 
     [Fact]
-    public void AcceptanceTest()
+    public static void AcceptanceTest()
     {
         var expected = 7;
         var actual = Input.ExampleInput.CalculateLengthOfPrefixAndMarker();

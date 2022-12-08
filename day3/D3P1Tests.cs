@@ -6,7 +6,7 @@ namespace day3;
 public class D3P1Tests
 {
     [Fact]
-    public void ParseInputLineTest()
+    public static void ParseInputLineTest()
     {
         var line = "ABCdef";
         var actualThing = line.TryParseAsBackpack();
@@ -16,7 +16,7 @@ public class D3P1Tests
     }
 
     [Fact]
-    public void ParseInputTest()
+    public static void ParseInputTest()
     {
         var things = Input.ExampleInput.ParseBackpacks().ToArray();
         things.Should().HaveCount(6);
@@ -27,13 +27,13 @@ public class D3P1Tests
     [InlineData('B', 28)]
     [InlineData('Z', 52)]
     [Theory]
-    public void TestPriority(char theChar, int expectedPriority)
+    public static void TestPriority(char theChar, int expectedPriority)
     {
         theChar.Priority().Should().Be(expectedPriority);
     }
 
     [Fact]
-    public void AcceptanceTest()
+    public static void AcceptanceTest()
     {
         var expected = 157;
         var things = Input.ExampleInput.ParseBackpacks();

@@ -6,7 +6,7 @@ namespace day4;
 public class D4P1Tests
 {
     [Fact]
-    public void ParseInputLineTest()
+    public static void ParseInputLineTest()
     {
         var line = "1-2,2-3";
         var expectedThing = new RawPairAssignment(new(1, 2), new(2, 3));
@@ -15,14 +15,14 @@ public class D4P1Tests
     }
 
     [Fact]
-    public void ParseInputTest()
+    public static void ParseInputTest()
     {
         var things = Input.ExampleInput.ParsePairAssignments().ToArray();
         things.Should().HaveCount(6);
     }
 
     [Fact]
-    public void ExpandTest()
+    public static void ExpandTest()
     {
         var input = new RawPairAssignment(new(1, 1), new(2, 4));
         var actual = input.Expand();
@@ -31,7 +31,7 @@ public class D4P1Tests
     }
 
     [Fact]
-    public void AcceptanceTest()
+    public static void AcceptanceTest()
     {
         var expected = 2;
         var things = Input.ExampleInput.ParsePairAssignments();

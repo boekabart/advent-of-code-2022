@@ -12,7 +12,7 @@ C Z
 ";
 
     [Fact]
-    public void ParsingIsOk()
+    public static void ParsingIsOk()
     {
         var actual = Input.ParsePredictions().ToArray();
         actual.Should().HaveCount(3);
@@ -34,7 +34,7 @@ C Z
     [InlineData(Result.Opponent, Move.Paper)]
     [InlineData(Result.Opponent, Move.Scissors)]
     [Theory]
-    public void HinUndHer( Result result, Move opponentMove)
+    public static void HinUndHer( Result result, Move opponentMove)
     {
         new Prediction(opponentMove, result)
             .MapToRound()
@@ -43,7 +43,7 @@ C Z
     }
 
     [Fact]
-    public void GetTotalScoreIsOk()
+    public static void GetTotalScoreIsOk()
     {
         Input.ParsePredictions()
             .MapToRounds()

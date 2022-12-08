@@ -6,7 +6,7 @@ namespace day1;
 public class D1P1Tests
 {
     [Fact]
-    public void ParsingIsOk()
+    public static void ParsingIsOk()
     {
         var input = @"
 1000
@@ -21,7 +21,7 @@ public class D1P1Tests
     }
 
     [Fact]
-    public void CountingIsOk()
+    public static void CountingIsOk()
     {
         var input = new int?[] {1000, 2000, null, 6000, 1000, null, 4000, 2000, 100};
         var actual = D1P1.GetCaloriesOfElfWithMostCalories(input);

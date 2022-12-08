@@ -6,7 +6,7 @@ namespace day7;
 public class D7P2Tests
 {
     [Fact]
-    public void GetFreeDiskSpaceTest()
+    public static void GetFreeDiskSpaceTest()
     {
         var fileSystemEntries = Input.ExampleInput.ParseThings().CreateDirectoryTree();
         var sizes = fileSystemEntries.GetDirectorySizes().ToArray();
@@ -15,7 +15,7 @@ public class D7P2Tests
     }
 
     [Fact]
-    public void AcceptanceTest()
+    public static void AcceptanceTest()
     {
         var expected = 24933642;
         var things = Input.ExampleInput.ParseThings();

@@ -12,7 +12,7 @@ C Z
 ";
 
     [Fact]
-    void ParsingIsOk()
+    public static void ParsingIsOk()
     {
         var actual = D2P1.ParseRounds(Input).ToArray();
         actual.Should().HaveCount(3);
@@ -25,7 +25,7 @@ C Z
     }
 
     [Fact]
-    public void GetRawScoreIsOk()
+    public static void GetRawScoreIsOk()
     {
         var rounds = D2P1.ParseRounds(Input).ToArray();
         rounds[0].You.Score().Should().Be(2);
@@ -39,7 +39,7 @@ C Z
     }
 
     [Fact]
-    public void GetScoreIsOk()
+    public static void GetScoreIsOk()
     {
         var rounds = D2P1.ParseRounds(Input).ToArray();
         rounds[0].Score().Should().Be(8);
@@ -48,7 +48,7 @@ C Z
     }
 
     [Fact]
-    public void GetTotalScoreIsOk()
+    public static void GetTotalScoreIsOk()
     {
         D2P1.ParseRounds(Input).GetTotalScore().Should().Be(15);
     }

@@ -6,7 +6,7 @@ namespace day3;
 public class D3P2Tests
 {
     [Fact]
-    public void AcceptanceTest()
+    public static void AcceptanceTest()
     {
         var expected = 70;
         var things = Input.ExampleInput.ParseBackpacks();

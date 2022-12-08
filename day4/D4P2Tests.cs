@@ -8,7 +8,7 @@ public class D4P2Tests
 {
 
     [Fact]
-    public void AcceptanceTest()
+    public static void AcceptanceTest()
     {
         var expected = 4;
         var things = Input.ExampleInput.ParsePairAssignments();

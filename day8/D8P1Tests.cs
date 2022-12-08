@@ -8,14 +8,14 @@ public class D8P1Tests
     [InlineData("30373", new[]{3,0,3,7,3})]
     [InlineData("", new int[0])]
     [Theory]
-    public void ParseInputLineTest(string line, int[]? expectedThing)
+    public static void ParseInputLineTest(string line, int[]? expectedThing)
     {
         var actualThing = line.ParseAsLineOfTreeHeights();
         actualThing.Should().BeEquivalentTo(expectedThing);
     }
 
     [Fact]
-    public void ParseInputTest()
+    public static void ParseInputTest()
     {
         var things = Input.ExampleInput.ParseTreeHeightGrid().ToArray();
         things.Should().HaveCount(5);
@@ -23,7 +23,7 @@ public class D8P1Tests
     }
 
     [Fact]
-    public void AcceptanceTest()
+    public static void AcceptanceTest()
     {
         var expected = 21;
         var things = Input.ExampleInput.ParseTreeHeightGrid();
