@@ -30,4 +30,12 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
         var actual = Input.ExampleInput.CalculateLengthOfPrefixAndMarker14();
         actual.Should().Be(expected);
     }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        var expected = 2823;
+        var actual = Input.RawInput.CalculateLengthOfPrefixAndMarker14();
+        actual.Should().Be(expected);
+    }
 }
