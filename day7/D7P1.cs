@@ -1,4 +1,5 @@
-﻿using static System.String;
+﻿using shared;
+using static System.String;
 
 namespace day7;
 
@@ -27,8 +28,7 @@ internal static class D7P1
 {
     public static IEnumerable<IThing> ParseThings(this string input) =>
         input
-            .Split(new[] {'\n'})
-            .Select(s => s.Trim())
+            .TrimmedLines()
             .Select(TryParseAsThing)
             .OfType<IThing>();
 
