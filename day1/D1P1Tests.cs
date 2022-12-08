@@ -14,7 +14,7 @@ public static class D1P1Tests
 
 3000
 ";
-        var actual = D1P1.GetCalorieList(input).ToArray();
+        var actual = input.GetCalorieList().ToArray();
         actual.Should().HaveCount(6);
         actual.Skip(1).First().Should().Be(1000);
         actual.Skip(3).First().Should().BeNull();
@@ -24,7 +24,16 @@ public static class D1P1Tests
     public static void CountingIsOk()
     {
         var input = new int?[] {1000, 2000, null, 6000, 1000, null, 4000, 2000, 100};
-        var actual = D1P1.GetCaloriesOfElfWithMostCalories(input);
+        var actual = input.GetCaloriesOfElfWithMostCalories();
         actual.Should().Be(7000);
+    }
+
+    [Fact]
+    public static void RegressionTest()
+    {
+        var expected = 71124;
+        var things = Input.RawCalorieList.GetCalorieList();
+        var actual = things.GetCaloriesOfElfWithMostCalories();
+        actual.Should().Be(expected);
     }
 }
