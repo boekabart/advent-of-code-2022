@@ -36,8 +36,7 @@ public static class D3P1Tests
     public static void AcceptanceTest()
     {
         var expected = 157;
-        var things = Input.ExampleInput.ParseBackpacks();
-        var actual = things.GetResult();
+        var actual = Input.ExampleInput.Part1Answer();
         actual.Should().Be(expected);
     }
 
@@ -45,8 +44,7 @@ public static class D3P1Tests
     public static void RegressionTest()
     {
         var expected = 7763;
-        var things = Input.RawInput.ParseBackpacks();
-        var actual = things.GetResult();
+        var actual = Input.RawInput.Part1Answer();
         actual.Should().Be(expected);
     }
 }

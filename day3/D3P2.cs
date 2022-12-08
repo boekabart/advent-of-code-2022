@@ -4,6 +4,12 @@ namespace day3;
 
 internal static class D3P2
 {
+    public static int Part2Answer(this string input) =>
+        input
+            .ParseBackpacks()
+            .MakeGroups()
+            .SumOfBadgePriorities();
+
     public static IEnumerable<Backpack[]> MakeGroups(this IEnumerable<Backpack> backpacks) =>
         backpacks.Buffer(3);
 

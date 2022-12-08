@@ -9,9 +9,7 @@ public static class D3P2Tests
     public static void AcceptanceTest()
     {
         var expected = 70;
-        var things = Input.ExampleInput.ParseBackpacks();
-        var groups = things.MakeGroups();
-        var actual = groups.SumOfBadgePriorities();
+        var actual = Input.ExampleInput.Part2Answer();
         actual.Should().Be(expected);
     }
 
@@ -19,9 +17,7 @@ public static class D3P2Tests
     public static void RegressionTest()
     {
         var expected = 2569;
-        var things = Input.RawInput.ParseBackpacks();
-        var groups = things.MakeGroups();
-        var actual = groups.SumOfBadgePriorities();
+        var actual = Input.RawInput.Part2Answer();
         actual.Should().Be(expected);
     }
 }
