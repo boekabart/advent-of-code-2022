@@ -6,6 +6,13 @@ public static class GridExtensionMethods
     public static IEnumerable<IEnumerable<TValue>> Rows<TValue>(this IEnumerable<IEnumerable<TValue>> grid) => grid;
 
     public static IEnumerable<TValue> Column<TValue>(this TValue[][] grid, int x) => grid.Select(row => row[x]);
+    public static TValue[] Row<TValue>(this TValue[][] grid, int y) => grid[y];
+
+    public static int Width<TValue>(this TValue[][] grid) => grid[0].Length;
+    public static int Height<TValue>(this TValue[][] grid) => grid.Length;
+
+    public static TValue Val<TValue>(this TValue[][] grid, int x, int y) => grid[y][x];
+    public static TValue Val<TValue>(this IEnumerable<IEnumerable<TValue>> grid, int x, int y) => grid.Skip(y).First().Skip(x).First();
 
     public static IEnumerable<int> ColumnIndices<TValue>(this TValue[][] grid) => Enumerable.Range(0, grid[0].Length);
 
