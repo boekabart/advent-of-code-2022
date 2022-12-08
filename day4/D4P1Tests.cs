@@ -26,8 +26,8 @@ public static class D4P1Tests
     {
         var input = new RawPairAssignment(new(1, 1), new(2, 4));
         var actual = input.Expand();
-        actual.FirstElveAssignment.Should().BeEquivalentTo(new[] { 1 });
-        actual.SecondElveAssignment.Should().BeEquivalentTo(new[] { 2,3,4 });
+        actual.FirstElfAssignment.Should().BeEquivalentTo(new[] { 1 });
+        actual.SecondElfAssignment.Should().BeEquivalentTo(new[] { 2,3,4 });
     }
 
     [Fact]

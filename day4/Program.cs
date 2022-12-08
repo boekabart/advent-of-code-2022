@@ -1,8 +1,7 @@
-﻿using day3;
-using day4;
+﻿using day4;
 
 var things = Input.RawInput.ParsePairAssignments();
-var expandedThings = things.Select(r => r.Expand());
+var expandedThings = things.Select(r => r.Expand()).ToArray();
 
 var actual = expandedThings.GetNumberOfFullyOverlappingPairs();
 Console.WriteLine($"The number of pairs with fully overlapping assignments is {actual}");

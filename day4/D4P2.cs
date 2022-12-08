@@ -1,12 +1,10 @@
-﻿using day4;
-
-namespace day3;
+﻿namespace day4;
 
 internal static class D3P2
 {
     public static int GetNumberOfOverlappingPairs(this IEnumerable<PairAssignment> things) =>
-        things.Select(HaveAnyOverlap).Count(r => r == true);
+        things.Count(HaveAnyOverlap);
 
     public static bool HaveAnyOverlap(this PairAssignment thing) =>
-        thing.FirstElveAssignment.Intersect(thing.SecondElveAssignment).Any();
+        thing.FirstElfAssignment.Intersect(thing.SecondElfAssignment).Any();
 }

@@ -1,5 +1,4 @@
-﻿using day3;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
 namespace day4;
