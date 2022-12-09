@@ -23,10 +23,10 @@ public class D9P2Tests
             .Should().Be(expected);
     }
 
-    [Fact(Skip = "ToDo")]
+    [Fact]
     internal static void RegressionTest()
     {
-        var expected = 42;
+        var expected = 2765;
         Input.RawInput
             .Part2Answer()
             .Should().Be(expected);
