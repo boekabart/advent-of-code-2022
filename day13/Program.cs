@@ -1,5 +1,4 @@
 ﻿using day13;
 
-var things = Input.RawInput.ParseThings();
-var result = things.GetResult();
-Console.WriteLine($"Wonder what this day will bring... In any case, the result it {result}");
+Console.WriteLine($"Wonder what this day will bring... In any case, the 1st result is {Input.RawInput.Part1Answer()}");
+Console.WriteLine($"Wonder what this day will bring... In any case, the 2nd result is {Input.RawInput.Part2Answer()}");

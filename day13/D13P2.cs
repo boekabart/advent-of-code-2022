@@ -1,5 +1,7 @@
-﻿namespace day3;
+﻿namespace day13;
 
-internal static class D3P2
+public static class D13P2
 {
+    public static object Part2Answer(this string input) =>
+        new NotImplementedException();
 }
