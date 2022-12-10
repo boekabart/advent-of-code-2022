@@ -22,5 +22,5 @@ public static class D10P2
         => new(regs.Select(RenderPixel).ToArray());
 
     internal static char RenderPixel(this CpuRegisters reg, int scan)
-        => Math.Abs(reg.X - scan) >= 2 ? '.' : '█';
+        => Math.Abs(reg.X - scan) >= 2 ? '·' : '█';
 }
