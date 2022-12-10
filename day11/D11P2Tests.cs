@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace day9;
+namespace day11;
 
-public class D9P2Tests
+public class D11P2Tests
 {
     [Fact(Skip = "ToDo")]
     internal static void AcceptanceTest()

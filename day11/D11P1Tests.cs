@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace day9;
+namespace day11;
 
-public static class D9P1Tests
+public static class D11P1Tests
 {
     [InlineData("",null)]
     [Theory]
