@@ -68,16 +68,16 @@ public static class D10P1Tests
             .Should().Be(expected);
     }
 
-    [Fact(Skip = "ToDo")]
+    [Fact]
     internal static void RegressionTest()
     {
-        var expected = 42;
+        var expected = 11820;
         Input.RawInput
             .Part1Answer()
             .Should().Be(expected);
     }
 
-    [Fact(Skip = "ToDo")]
+    [Fact]
     internal static void RawInputLeadsTo220Signals()
     {
         var things = Input.RawInput.ParseInstructions().Expand().Execute().GetSignalStrengths().ToArray();
