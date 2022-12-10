@@ -46,6 +46,9 @@ public static class D10P1Tests
     {
         var things = Input.ExampleInput.ParseInstructions().Expand().Execute().ToArray();
         things.Should().HaveCount(240);
+        things[0].X.Should().Be(1);
+        things[1].X.Should().Be(1);
+        things[2].X.Should().Be(16);
         things[19].X.Should().Be(21);
         things[59].X.Should().Be(19);
     }
