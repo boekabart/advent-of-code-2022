@@ -3,13 +3,13 @@ using shared;
 
 namespace day11;
 
-internal record Monkey(int Index, ImmutableQueue<int> Items, Func<int,int> Operation, Func<int,bool> Test, int TrueMonkey, int FalseMonkey);
+internal record Monkey(int Index, ImmutableQueue<long> Items, Func<long,long> Operation, Func<long,bool> Test, int TrueMonkey, int FalseMonkey, long Modulo);
 
-internal record Game(ImmutableArray<Monkey> Monkeys, ImmutableArray<int> InspectionCounts);
+internal record Game(ImmutableArray<Monkey> Monkeys, ImmutableArray<int> InspectionCounts, long WorryDivisor, long Modulo);
 
 public static class D11P1
 {
-    public static int Part1Answer(this string input) =>
+    public static long Part1Answer(this string input) =>
         input
             .ParseMonkeys()
             .ToList()
@@ -46,8 +46,8 @@ public static class D11P1
         {
             Items = rest
                 .Select(withComma => withComma.Replace(",", ""))
-                .Select(int.Parse)
-                .Aggregate(ImmutableQueue<int>.Empty, (queue, item) => queue.Enqueue(item))
+                .Select(long.Parse)
+                .Aggregate(ImmutableQueue<long>.Empty, (queue, item) => queue.Enqueue(item))
         });
 
     private static (Monkey? RetVal, Monkey WipMonkey) AddOperation(Monkey wipMonkey, string[] rest) =>
@@ -55,13 +55,17 @@ public static class D11P1
         {
             ("*", "old") => (null, wipMonkey with {Operation = old => old * old}),
             ("+", "old") => (null, wipMonkey with {Operation = old => old + old}),
-            ("*", _) => (null, wipMonkey with {Operation = old => old * int.Parse(rest[4])}),
-            ("+", _) => (null, wipMonkey with {Operation = old => old + int.Parse(rest[4])}),
+            ("*", _) => (null, wipMonkey with {Operation = old => old * long.Parse(rest[4])}),
+            ("+", _) => (null, wipMonkey with {Operation = old => old + long.Parse(rest[4])}),
             _ => throw new InvalidOperationException()
         };
 
     private static (Monkey? RetVal, Monkey WipMonkey) AddTest(Monkey wipMonkey, string[] rest)
-        => (null, wipMonkey with {Test = worry => worry % int.Parse(rest[2]) == 0});
+        => (null, wipMonkey with
+        {
+            Test = worry => worry % long.Parse(rest[2]) == 0,
+            Modulo = long.Parse(rest[2])
+        });
 
     private static (Monkey? RetVal, Monkey WipMonkey) AddTrueMonkey(Monkey wipMonkey, string[] rest)
         => (null, wipMonkey with {TrueMonkey = int.Parse(rest[4])});
@@ -74,12 +78,12 @@ public static class D11P1
         var monkeyNo = int.Parse(numberColon[..^1]);
         return (
             wipMonkey,
-            new Monkey(monkeyNo, ImmutableQueue<int>.Empty, _ => 0, _ => false, -1, -1)
+            new Monkey(monkeyNo, ImmutableQueue<long>.Empty, _ => 0, _ => false, -1, -1, 0)
         );
     }
 
-    internal static Game CreateGame(this ICollection<Monkey> monkeys) =>
-        new(monkeys.ToImmutableArray(), monkeys.Select(_ => 0).ToImmutableArray());
+    internal static Game CreateGame(this ICollection<Monkey> monkeys, int worryDivisor = 3) =>
+        new(monkeys.ToImmutableArray(), monkeys.Select(_ => 0).ToImmutableArray(), worryDivisor, monkeys.Select(m => m.Modulo).Multiplied());
 
     internal static Game PlayRounds(this Game game, int count)
         => Enumerable.Range(0, count).Aggregate(game, PlayRound);
@@ -90,12 +94,12 @@ public static class D11P1
     private static Game PlayTurn(Game game, int monkeyIndex) =>
         game.Monkeys[monkeyIndex].Items
             .Select(item => (Item: item, MonkeyIndex: monkeyIndex))
-            .Aggregate(game.UpdateMonkey(game.Monkeys[monkeyIndex] with {Items = ImmutableQueue<int>.Empty}),
+            .Aggregate(game.UpdateMonkey(game.Monkeys[monkeyIndex] with {Items = ImmutableQueue<long>.Empty}),
                 (gm, itemPair) => HandleItem(itemPair.Item, gm.Monkeys[itemPair.MonkeyIndex], gm));
 
-    private static Game HandleItem(int item, Monkey monkey, Game game)
+    private static Game HandleItem(long item, Monkey monkey, Game game)
     {
-        var newItem = monkey.Operation(item) / 3;
+        var newItem = (monkey.Operation(item) / game.WorryDivisor) % game.Modulo;
         var targetMonkey = game.Monkeys[monkey.Test(newItem) ? monkey.TrueMonkey : monkey.FalseMonkey];
         return game
             .IncreaseInspectionCount(monkey)
@@ -114,13 +118,16 @@ public static class D11P1
             InspectionCounts = game.InspectionCounts.SetItem(monkey.Index, game.InspectionCounts[monkey.Index] + 1)
         };
 
-    internal static int GetLevelOfMonkeyBusiness(this Game game)
+    internal static long GetLevelOfMonkeyBusiness(this Game game)
         => game
             .InspectionCounts
             .OrderByDescending(_ => _)
             .Take(2)
             .Multiplied();
 
-    internal static int Multiplied(this IEnumerable<int> numbers)
-        => numbers.Aggregate(1, (prev, num) => prev * num);
+    internal static long Multiplied(this IEnumerable<int> numbers)
+        => numbers.Aggregate((long)1, (prev, num) => prev * num);
+
+    internal static long Multiplied(this IEnumerable<long> numbers)
+        => numbers.Aggregate((long)1, (prev, num) => prev * num);
 }
