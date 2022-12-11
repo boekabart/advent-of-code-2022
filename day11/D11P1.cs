@@ -3,7 +3,7 @@ using shared;
 
 namespace day11;
 
-internal record Monkey(int Index, ImmutableQueue<long> Items, Func<long,long> Operation, Func<long,bool> Test, int TrueMonkey, int FalseMonkey, long Modulo);
+internal record Monkey(int Index, ImmutableQueue<long> Items, Func<long,long> Operation, int TrueMonkey, int FalseMonkey, long Modulo);
 
 internal record Game(ImmutableArray<Monkey> Monkeys, ImmutableArray<int> InspectionCounts, long WorryDivisor, long Modulo);
 
@@ -63,7 +63,6 @@ public static class D11P1
     private static (Monkey? RetVal, Monkey WipMonkey) AddTest(Monkey wipMonkey, string[] rest)
         => (null, wipMonkey with
         {
-            Test = worry => worry % long.Parse(rest[2]) == 0,
             Modulo = long.Parse(rest[2])
         });
 
@@ -78,7 +77,7 @@ public static class D11P1
         var monkeyNo = int.Parse(numberColon[..^1]);
         return (
             wipMonkey,
-            new Monkey(monkeyNo, ImmutableQueue<long>.Empty, _ => 0, _ => false, -1, -1, 0)
+            new Monkey(monkeyNo, ImmutableQueue<long>.Empty, _ => 0, -1, -1, 0)
         );
     }
 
@@ -105,6 +104,8 @@ public static class D11P1
             .IncreaseInspectionCount(monkey)
             .UpdateMonkey(targetMonkey with {Items = targetMonkey.Items.Enqueue(newItem)});
     }
+
+    internal static bool Test(this Monkey monkey, long item) => item % monkey.Modulo == 0;
 
     private static Game UpdateMonkey(this Game game, Monkey monkey)
         => game with

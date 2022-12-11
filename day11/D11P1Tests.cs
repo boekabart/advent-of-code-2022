@@ -15,6 +15,7 @@ public static class D11P1Tests
         monkey0.Items.Should().HaveCount(2);
         monkey0.Items.Peek().Should().Be(79);
         monkey0.Operation(1).Should().Be(19);
+        monkey0.Modulo.Should().Be(23);
         monkey0.Test(46).Should().BeTrue();
         monkey0.Test(47).Should().BeFalse();
         monkey0.TrueMonkey.Should().Be(2);
@@ -28,6 +29,7 @@ public static class D11P1Tests
         monkey3.Items.Should().HaveCount(1);
         monkey3.Items.Peek().Should().Be(74);
         monkey3.Operation(1).Should().Be(4);
+        monkey3.Modulo.Should().Be(17);
         monkey3.Test(51).Should().BeTrue();
         monkey3.Test(47).Should().BeFalse();
         monkey3.TrueMonkey.Should().Be(0);
