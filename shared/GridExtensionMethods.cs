@@ -32,6 +32,17 @@ public static class GridExtensionMethods
         Func<IEnumerable<TInput>, IEnumerable<TResult>> func) =>
         grid.Columns().SelectMany(func);
 
+    public static IEnumerable<TValue> GridItems<TValue>(this IEnumerable<IEnumerable<TValue>> grid)
+        => grid.Rows().SelectMany(row => row);
+
+    public static IEnumerable<TValue> Neighbors<TValue>(this TValue[][] grid, int x, int y)
+    {
+        if (x > 0) yield return grid.Val(x - 1, y);
+        if (x < grid.Width() - 1) yield return grid.Val(x + 1, y);
+        if (y > 0) yield return grid.Val(x, y - 1);
+        if (y < grid.Height() - 1) yield return grid.Val(x, y + 1);
+    }
+
     public static IEnumerable<IEnumerable<TResult>> Select<TValue, TResult>(this IEnumerable<IEnumerable<TValue>> grid,
         Func<TValue, int, int, TResult> mapWithCoordinates) =>
         grid.Rows().Select((row, y) => row.Select((item, x) => mapWithCoordinates(item, x, y)));
@@ -40,5 +51,5 @@ public static class GridExtensionMethods
         grid is TValue[][] gridArray ? gridArray : grid.Rows().Select(row => row.AsArray()).ToArray();
 
     public static TValue[] AsArray<TValue>(this IEnumerable<TValue> row) =>
-        row is TValue[] array ? array : row.AsArray();
+        row is TValue[] array ? array : row.ToArray();
 }
