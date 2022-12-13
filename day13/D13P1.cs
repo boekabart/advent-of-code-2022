@@ -3,12 +3,21 @@ using shared;
 
 namespace day13;
 
-internal record Thing
+internal readonly record struct Thing : IComparable<Thing>
 {
     internal Thing(int value) => Value = value;
     internal Thing(Thing[] value) => Things = value;
     public int? Value { get; init; }
     public Thing[]? Things { get; init; }
+
+    public int CompareTo(Thing other) => (Value, Things, other.Value, other.Things) switch
+    {
+        ({ } l, null, { } r, null) => l.CompareTo(r),
+        ({ } l, null, null, { }) => l.Wrapped().CompareTo(other),
+        (null, { } l, null, { } r) => l.CompareTo(r),
+        (null, { }, { } r, null) => this.CompareTo(r.Wrapped()),
+        _ => throw new UnreachableException()
+    };
 }
 
 public static class D13P1
@@ -77,18 +86,6 @@ public static class D13P1
             return new(valueInWording.Value);
 
         throw new UnreachableException();
-    }
-
-    internal static int CompareTo(this Thing lhs, Thing rhs)
-    {
-        return (lhs.Value, lhs.Things, rhs.Value, rhs.Things) switch
-        {
-            ({ } l, null, { } r, null) => l.CompareTo(r),
-            ({ } l, null, null, { }) => l.Wrapped().CompareTo(rhs),
-            (null, { } l, null, { } r) => l.CompareTo(r),
-            (null, { }, { } r, null) => lhs.CompareTo(r.Wrapped()),
-            _ => throw new UnreachableException()
-        };
     }
 
     internal static int CompareTo(this Thing[] lhs, Thing[] rhs)

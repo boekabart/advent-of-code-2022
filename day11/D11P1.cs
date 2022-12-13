@@ -125,10 +125,4 @@ public static class D11P1
             .OrderByDescending(_ => _)
             .Take(2)
             .Multiplied();
-
-    internal static long Multiplied(this IEnumerable<int> numbers)
-        => numbers.Aggregate((long)1, (prev, num) => prev * num);
-
-    internal static long Multiplied(this IEnumerable<long> numbers)
-        => numbers.Aggregate((long)1, (prev, num) => prev * num);
 }

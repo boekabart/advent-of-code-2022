@@ -12,9 +12,9 @@ public static class D13P1Tests
         "[]".TryParseAsThing().Things.Should().BeEquivalentTo(Array.Empty<Thing>());
         "[9]".TryParseAsThing().Things.Should().BeEquivalentTo(new Thing[] {new(9)});
         "[7,7,7]".TryParseAsThing().Things.Should().BeEquivalentTo(new Thing[] {new(7), new(7) , new(7) });
-        "[[1],4]".TryParseAsThing().Things.Should().BeEquivalentTo(new Thing[] {new(new Thing[]{new(1)}), new(4)});
         "9".TryParseAsThing().Should().BeEquivalentTo(new Thing(9));
         "0".TryParseAsThing().Should().BeEquivalentTo(new Thing(0));
+        "[[1],4]".TryParseAsThing().Render().Should().Be("[[1],4]");
     }
 
     [Fact]

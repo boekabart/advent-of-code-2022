@@ -33,4 +33,10 @@ public static class MoreLinq
         items.Select((item, idx) => (Item: item, Window: idx / bufferSize))
             .GroupBy(gr => gr.Window)
             .Select(gr => gr.Select(pair => pair.Item).ToArray());
+
+    public static long Multiplied(this IEnumerable<int> numbers)
+        => numbers.Aggregate((long)1, (prev, num) => prev * num);
+
+    public static long Multiplied(this IEnumerable<long> numbers)
+        => numbers.Aggregate((long)1, (prev, num) => prev * num);
 }
