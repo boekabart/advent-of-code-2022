@@ -5,34 +5,38 @@ namespace day14;
 
 public static class D14P1Tests
 {
-    [InlineData("",null)]
+    [InlineData("1,2 -> 1,3 -> 2,3",3,2,3)]
     [Theory]
-    internal static void ParseInputLineTest(string line, Thing? expectedThing)
+    internal static void ParseInputLineTest(string line, int expectedNodeCount, int expectedLastX, int expectedLastY)
     {
-        var actualThing = line.TryParseAsThing();
-        actualThing.Should().Be(expectedThing);
+        var actualThing = line.TryParseAsRock();
+        actualThing.Nodes.Should().HaveCount(expectedNodeCount);
+        actualThing.Nodes.Last().X.Should().Be(expectedLastX);
+        actualThing.Nodes.Last().Y.Should().Be(expectedLastY);
     }
 
     [Fact]
     internal static void ParseInputTest()
     {
-        var things = Input.ExampleInput.ParseThings().ToArray();
-        things.Should().HaveCount(0);
+        var things = Input.ExampleInput.ParseRocks().ToArray();
+        things.Should().HaveCount(2);
+        var realThings = Input.RawInput.ParseRocks().ToArray();
+        realThings.Should().HaveCount(177);
     }
 
-    [Fact(Skip="ToDo")]
+    [Fact]
     internal static void AcceptanceTest()
     {
-        var expected = 42;
+        var expected = 24;
         Input.ExampleInput
             .Part1Answer()
             .Should().Be(expected);
     }
 
-    [Fact(Skip = "ToDo")]
+    [Fact]
     internal static void RegressionTest()
     {
-        var expected = 42;
+        var expected = 964;
         Input.RawInput
             .Part1Answer()
             .Should().Be(expected);
