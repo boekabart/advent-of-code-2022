@@ -55,6 +55,7 @@ public static class D14P1
         return grid;
 
     }
+
     internal static int CountHowManySandCanBeSpawnedWithoutSpilling(this Grid grid)
     {
         for (var count = 0; ; count++)
@@ -67,6 +68,11 @@ public static class D14P1
             }
 
             grid.Array[finalLocation.Y][finalLocation.X] = 'o';
+            if (finalLocation == grid.Source)
+            {
+                grid.Dump();
+                return count + 1;
+            }
         }
 
         throw new UnreachableException();
