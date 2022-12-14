@@ -8,7 +8,7 @@ public static class D14P2
             .FillInTheBlanks()
             .ToArray()
             .AsGridWithFloor()
-            .Dump()
+            //.Dump()
             .CountHowManySandCanBeSpawnedWithoutSpilling();
 
     internal static Grid AsGridWithFloor(this ICollection<Coordinate> rockCoordinates)

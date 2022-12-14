@@ -17,7 +17,7 @@ public static class D14P1
             .FillInTheBlanks()
             .ToArray()
             .AsGrid()
-            .Dump()
+//            .Dump()
             .CountHowManySandCanBeSpawnedWithoutSpilling();
 
     internal static IEnumerable<Rock> ParseRocks(this string input) =>
@@ -63,7 +63,7 @@ public static class D14P1
             var finalLocation = grid.SimulateFallingSand();
             if (finalLocation is null)
             {
-                grid.Dump();
+                //grid.Dump();
                 return count;
             }
 

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using BenchmarkDotNet.Attributes;
+using FluentAssertions;
 using Xunit;
 
 namespace day14;
@@ -14,8 +15,9 @@ public class D14P2Tests
             .Should().Be(expected);
     }
 
+    [Benchmark]
     [Fact]
-    internal static void RegressionTest()
+    public void RegressionTest()
     {
         var expected = 32041;
         Input.RawInput
