@@ -68,11 +68,6 @@ public static class D14P1
             }
 
             grid.Array[finalLocation.Y][finalLocation.X] = 'o';
-            if (finalLocation == grid.Source)
-            {
-                grid.Dump();
-                return count + 1;
-            }
         }
 
         throw new UnreachableException();
@@ -81,6 +76,9 @@ public static class D14P1
     internal static Coordinate? SimulateFallingSand(this Grid grid)
     {
         var iter = grid.Source;
+        if (grid.Array[iter.Y][iter.X] != 'x')
+            return null;
+
         while (true)
             //  (iter.Y < grid.Array.Height() && iter.X >= 0 && iter.X < grid.Array.Width()))
         {
