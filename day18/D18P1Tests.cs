@@ -20,12 +20,21 @@ public static class D18P1Tests
         things.Should().HaveCount(0);
     }
 
-    [Fact]
+    [Fact(Skip="ToDo")]
     internal static void AcceptanceTest()
     {
-        var expected = 0;
-        var things = Input.ExampleInput.ParseThings();
-        var actual = things.GetResult();
-        actual.Should().Be(expected);
+        var expected = 42;
+        Input.ExampleInput
+            .Part1Answer()
+            .Should().Be(expected);
+    }
+
+    [Fact(Skip = "ToDo")]
+    internal static void RegressionTest()
+    {
+        var expected = 42;
+        Input.RawInput
+            .Part1Answer()
+            .Should().Be(expected);
     }
 }

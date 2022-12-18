@@ -1,12 +1,17 @@
-﻿namespace day18;
+﻿using shared;
+
+namespace day18;
 
 internal record Thing(bool Data);
 
 public static class D18P1
 {
+    public static object Part1Answer(this string input) =>
+        new NotImplementedException();
+
     internal static IEnumerable<Thing> ParseThings(this string input) =>
         input
-            .Split(new[] {'\n'})
+            .Lines()
             .Select(TryParseAsThing)
             .OfType<Thing>();
 
