@@ -91,25 +91,27 @@ public static class D16P1
         var minGuaranteedResult = 0;
         queue.Enqueue(startSnapshot, graph, minGuaranteedResult);
         var solutions = new List<Snapshot>();
+        int bestSolution = int.MinValue;
         while (queue.Any())
         {
             var snapshot = queue.Dequeue();
 
+            var maximalEndResult = snapshot.MaximalTheoreticalEndResult(graph);
+            if (maximalEndResult < minGuaranteedResult)
+                continue;
+            
+            if (maximalEndResult <= bestSolution)
+                continue;
+
             if (snapshot.TimeLeft() == 0)
             {
-                if (!solutions.Any() || snapshot.AccumulatedFlow > solutions[^1].AccumulatedFlow)
-                {
-                    Console.WriteLine(snapshot.AccumulatedFlow);
-                    snapshot.History.ForEach(Console.WriteLine);
-                    solutions.Add(snapshot);
-                }
+                bestSolution = snapshot.AccumulatedFlow;
+                Console.WriteLine(snapshot.AccumulatedFlow);
+                snapshot.History.ForEach(Console.WriteLine);
+                solutions.Add(snapshot);
 
                 continue;
             }
-
-            var maximalEndResult = snapshot.MaximalTheoreticalEndResult();
-            if (maximalEndResult < minGuaranteedResult)
-                continue;
 
             if (!snapshot.OpenValves.Contains(snapshot.Location))
                 minGuaranteedResult = queue.Enqueue(snapshot.OpenValve(snapshot.Location), graph, minGuaranteedResult);
@@ -129,7 +131,7 @@ public static class D16P1
     
     private static int Enqueue(this List<(int MinResult, Snapshot Snapshot)> queue, Snapshot candidate, Graph graph, int minGuaranteedResult)
     {
-        var myMaximalEndResult = candidate.MaximalTheoreticalEndResult();
+        var myMaximalEndResult = candidate.MaximalTheoreticalEndResult(graph);
         if (myMaximalEndResult < minGuaranteedResult)
             return minGuaranteedResult;
         
@@ -201,7 +203,7 @@ public static class D16P1
                     .Select(pair => (pair.Valve, pair.Dist,
                         Potential: (timeLeft - (1 + pair.Dist)) * pair.Valve.FlowRate))
                     .MaxBy(trp => trp.Potential);
-            if (potential < 0)
+            if (valvePotential < 0)
                 break;
             potential += valvePotential;
             timeLeft -= dist;
@@ -213,19 +215,29 @@ public static class D16P1
         return snapshot.MinimalEndResult() + potential;
     }
     
-    internal static int MaximalTheoreticalEndResult(this Snapshot snapshot)
+    internal static int MaximalTheoreticalEndResult(this Snapshot snapshot, Graph graph)
     {
         var timeLeft = snapshot.TimeLeft();
-        var potential = 0;
-        var closedValves = snapshot.AllValves.Except(snapshot.OpenValves);
+        if (timeLeft < 1)
+            return snapshot.MinimalEndResult();
+        
+        var closedValves = snapshot.AllValves.Except(snapshot.OpenValves).ToList();
+
+        var potential = closedValves.Select(cv => (Valve: cv,
+                    Dist: graph.Distance(snapshot.Location, cv)
+                ))
+            .Select(pair => (timeLeft - (1 + pair.Dist)) * pair.Valve.FlowRate)
+            .Where(pot => pot > 0)
+            .Sum();
+
+        var potential2 = 0;
         foreach (var s in closedValves)
         {
-            potential += timeLeft * s.FlowRate;
+            potential2 += timeLeft * s.FlowRate;
             timeLeft -= 2;
             if (timeLeft <= 0)
                 break;
         }
-
-        return snapshot.MinimalEndResult() + potential;
+        return snapshot.MinimalEndResult() + Math.Min(potential, potential2);
     }
 }
