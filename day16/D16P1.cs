@@ -53,25 +53,39 @@ public static class D16P1
         return valvesDictionary.Values;
     }
 
+    internal static bool Equivalent(this Snapshot one, Snapshot two)
+    {
+        return one.Time == two.Time
+               && one.Location == two.Location
+               && one.AccumulatedFlow == two.AccumulatedFlow
+               && !one.OpenValves.SymmetricExcept(two.OpenValves).Any();
+    }
+
     internal class Graph
     {
         private readonly Dictionary<string, int> _distances = new();
 
-        public int Distance(Valve src, Valve dst) => Distance(src, dst, ImmutableHashSet<Valve>.Empty) ?? throw new InvalidOperationException($"No distance between {src.Name} and {dst.Name}");
-
-        private int? Distance(Valve src, Valve dst, ImmutableHashSet<Valve> forbiddenValves)
+        public int Distance(Valve src, Valve dst)
         {
-            if (src == dst) return 0;
             var key = $"{src.Name}-{dst.Name}";
             if (_distances.TryGetValue(key, out var dist))
                 return dist;
 
+            var distance = Distance(src, dst, ImmutableHashSet<Valve>.Empty);
+            if (distance.HasValue)
+                _distances[key] = distance.Value;
+
+            return distance ?? throw new InvalidOperationException($"No distance between {src.Name} and {dst.Name}");
+        }
+
+        private int? Distance(Valve src, Valve dst, ImmutableHashSet<Valve> forbiddenValves)
+        {
+            if (src == dst) return 0;
+            
             var distance = src.Connections
                 .Min(conn => forbiddenValves.Contains(conn)
                     ? null
                 : Distance(conn, dst, forbiddenValves.Add(src))) + 1;
-            if (distance.HasValue)
-                _distances[key] = distance.Value;
             return distance;
         }
     }
@@ -89,9 +103,9 @@ public static class D16P1
             ImmutableList<string>.Empty);
         var queue = new List<(int, Snapshot)>();
         var minGuaranteedResult = 0;
-        queue.Enqueue(startSnapshot, graph, minGuaranteedResult);
+        int bestSolution = 0;
+        queue.Enqueue(startSnapshot, graph, minGuaranteedResult, bestSolution);
         var solutions = new List<Snapshot>();
-        int bestSolution = int.MinValue;
         while (queue.Any())
         {
             var snapshot = queue.Dequeue();
@@ -114,10 +128,10 @@ public static class D16P1
             }
 
             if (!snapshot.OpenValves.Contains(snapshot.Location))
-                minGuaranteedResult = queue.Enqueue(snapshot.OpenValve(snapshot.Location), graph, minGuaranteedResult);
+                minGuaranteedResult = queue.Enqueue(snapshot.OpenValve(snapshot.Location), graph, minGuaranteedResult, bestSolution);
 
             foreach (var conn in snapshot.Location.Connections)
-                minGuaranteedResult = queue.Enqueue(snapshot.MoveTo(conn), graph, minGuaranteedResult);
+                minGuaranteedResult = queue.Enqueue(snapshot.MoveTo(conn), graph, minGuaranteedResult, bestSolution);
         }
 
         return solutions.MaxBy(snapshot => snapshot.AccumulatedFlow)!;
@@ -129,22 +143,45 @@ public static class D16P1
         return iter;
     }
     
-    private static int Enqueue(this List<(int MinResult, Snapshot Snapshot)> queue, Snapshot candidate, Graph graph, int minGuaranteedResult)
+    private static Dictionary<int, List<Snapshot>> _queuedItems = new();
+    private static int Enqueue(this List<(int MinResult, Snapshot Snapshot)> queue, Snapshot candidate, Graph graph, int minGuaranteedResult, int bestSolution)
     {
         var myMaximalEndResult = candidate.MaximalTheoreticalEndResult(graph);
         if (myMaximalEndResult < minGuaranteedResult)
             return minGuaranteedResult;
+
+        if (myMaximalEndResult <= bestSolution)
+            return minGuaranteedResult;
         
         var myMinimumReachableResult = candidate.MinimalEndResult(graph);
+       
+        if (!_queuedItems.TryGetValue(myMinimumReachableResult, out var list))
+            list = _queuedItems[myMinimumReachableResult] = new();
+        if (list.Any(i => i.Equivalent(candidate)))
+            return minGuaranteedResult;
+        list.Add(candidate);
         
         int pos = 0;
-        for (; pos < queue.Count; pos++)
+        int min = 0;
+        int max = queue.Count;
+        while (min <= max-1)
         {
-            var otherMin = queue[pos].MinResult;
-            if (otherMin > myMinimumReachableResult)
-                break;
+            var cand = (min + max) / 2;
+            
+            var candMin = queue[cand].MinResult;
+            if (candMin == myMinimumReachableResult)
+            {
+                if (queue[cand].Snapshot.Time > candidate.Time)
+                    max = cand;
+                else
+                    min = cand + 1;
+            }
+            else if (candMin > myMinimumReachableResult)
+                max = cand;
+            else
+                min = cand + 1;
         }
-        queue.Insert(pos, (myMinimumReachableResult, candidate));
+        queue.Insert(min, (myMinimumReachableResult, candidate));
         return Math.Max(minGuaranteedResult, myMinimumReachableResult);
     }
 
