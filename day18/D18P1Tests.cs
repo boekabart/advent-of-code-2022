@@ -9,7 +9,7 @@ public static class D18P1Tests
     [Theory]
     internal static void ParseInputLineTest(string line, Thing? expectedThing)
     {
-        var actualThing = line.TryParseAsThing();
+        var actualThing = line.ParseAsThing();
         actualThing.Should().Be(expectedThing);
     }
 
@@ -20,19 +20,19 @@ public static class D18P1Tests
         things.Should().HaveCount(0);
     }
 
-    [Fact(Skip="ToDo")]
+    [Fact]
     internal static void AcceptanceTest()
     {
-        var expected = 42;
+        var expected = 64;
         Input.ExampleInput
             .Part1Answer()
             .Should().Be(expected);
     }
 
-    [Fact(Skip = "ToDo")]
+    [Fact]
     internal static void RegressionTest()
     {
-        var expected = 42;
+        var expected = 42;//3396;
         Input.RawInput
             .Part1Answer()
             .Should().Be(expected);

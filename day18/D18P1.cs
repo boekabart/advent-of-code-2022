@@ -2,24 +2,50 @@
 
 namespace day18;
 
-internal record Thing(bool Data);
+internal record Thing(int X, int Y, int Z);
+internal record Direction(int dX, int dY, int dZ);
+
+internal record Side(Thing Thing, Direction Dir);
 
 public static class D18P1
 {
     public static object Part1Answer(this string input) =>
-        new NotImplementedException();
+        input
+            .ParseThings()
+            .ToHashSet()
+            .ExposedSides()
+            .Count();
 
     internal static IEnumerable<Thing> ParseThings(this string input) =>
         input
-            .Lines()
-            .Select(TryParseAsThing)
-            .OfType<Thing>();
+            .NotEmptyTrimmedLines()
+            .Select(ParseAsThing);
 
-    internal static Thing? TryParseAsThing(this string line)
+    internal static Thing ParseAsThing(this string line)
     {
-        return null;
+        var split = line.Split(',').Select(int.Parse).ToArray();
+        return new(split[0], split[1], split[2]);
     }
 
-    internal static int GetResult(this IEnumerable<Thing> things) => things.Select(AsResult).Sum();
-    internal static int AsResult(this Thing thing) => 0;
+    internal static IEnumerable<Side> ExposedSides(this HashSet<Thing> things)
+    {
+        return things.SelectMany(Sides).Where(side => !things.Contains(side.OtherThing()));
+    }
+
+    internal static Thing OtherThing(this Side side) => new(
+        side.Thing.X + side.Dir.dX,
+        side.Thing.Y + side.Dir.dY,
+        side.Thing.Z + side.Dir.dZ);
+
+    internal static IEnumerable<Side> Sides(this Thing thing) => Directions.Select(dir => new Side(thing, dir));
+
+    private static readonly Direction[] Directions =
+    {
+        new(0, 0, 1),
+        new(0, 0, -1),
+        new(0, 1, 0),
+        new(0, -1, 0),
+        new(1, 0, 0),
+        new(-1, 0, 0),
+    };
 }
