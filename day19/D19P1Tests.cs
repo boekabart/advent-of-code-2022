@@ -34,6 +34,18 @@ public static class D19P1Tests
         things.Should().HaveCount(30);
     }
 
+    [Fact]
+    internal static void StepTest()
+    {
+        var things = Input.ExampleInput.ParseBlueprints().ToArray()[0];
+        var outcomes = things.GenerateOutcomes(1);
+        outcomes.Should().HaveCount(1);
+        outcomes[0].Resources["ore"].Should().Be(1);
+        var outcomes2 = things.GenerateOutcomes(2);
+        outcomes2.Should().HaveCount(1);
+        outcomes2[0].Resources["ore"].Should().Be(2);
+    }
+
     [InlineData(1,9)]
     [InlineData(2,12)]
     [Theory]
