@@ -22,6 +22,7 @@ public static class ParsingExtensions
             .Where(s => s.Length > 0);
 
     public static int? AsIntOrNull(this string txt) => int.TryParse(txt, out var number) ? number : null;
+    public static int AsInt(this string txt) => int.Parse(txt);
 
     public static IEnumerable<int?> AsIntsOrNulls(this IEnumerable<string> lines) => lines.Select(AsIntOrNull);
 }
