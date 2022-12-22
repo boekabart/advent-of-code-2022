@@ -3,5 +3,5 @@
 public static class D17P2
 {
     public static object Part2Answer(this string input) =>
-        new NotImplementedException();
+        input.Part1Answer(1_000_000_000_000);
 }

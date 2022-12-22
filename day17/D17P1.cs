@@ -9,7 +9,7 @@ internal record Thing(List<bool[]> Rock, int X, int Y);
 
 public static class D17P1
 {
-    public static object Part1Answer(this string input, int blocks = 2022)
+    public static object Part1Answer(this string input, long blocks = 2022)
     {
         var windDirections = input.NotEmptyTrimmedLines()
             .SelectMany(l => l.Select(w => w == '<'?-1:w == '>'?1:0))
@@ -61,7 +61,7 @@ public static class D17P1
                 var myHeight = HeightsAfterBlocks[TemplateIndex];
                 var hisHeight = HeightsAfterBlocks[previousBlock];
                 var heightPerInterval = myHeight - hisHeight;
-                var refBlock = blocks % interval;
+                var refBlock = (int)(blocks % interval);
                 var repeats = blocks / interval;
                 var refHeight = HeightsAfterBlocks[refBlock];
                 var extra = heightPerInterval * repeats;
