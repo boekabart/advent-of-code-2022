@@ -18,12 +18,19 @@ public static class D17P1
         
         //var theWind = Enumerable.Range(0, int.MaxValue).SelectMany(_ => windDirections);
         var theField = new Thing(new List<bool[]> { EmptyLine() }, 0, 0);
-        var theRock = theField.Spawn(NextTemplate());
+        var templateIndex = 0;
+        Thing? theRock = null;
         int windIndex = 0;
-        Dictionary<(long, int, int), int> hashSet = new();
-        List<int> HeightsAfterBlocks = new() {0};
+        Dictionary<(long Top9Rows, int TemplateIndex, int WindIndex), int> situationsDictionary = new();
+        List<int> heightsAfterBlocks = new() {0};
         while (true)
         {
+            if (theRock is null)
+            {
+                theRock = SpawnRock();
+                theField.Dump(theRock, "@");
+            }
+
             var windDir = windDirections[windIndex++ % windDirections.Length];
             var blownRock = theRock with { X = theRock.X + windDir };
             if (!theField.Intersects(blownRock))
@@ -41,40 +48,42 @@ public static class D17P1
                 theRock = fallenRock;
                 theField.Dump(theRock, "V");
                 continue;
-                }
+            }
             theField.Dump(theRock, "X");
 
-           theField.Render(theRock);
-           HeightsAfterBlocks.Add(theField.RockHeight());
-           //theField.Dump();
-            if (TemplateIndex == blocks)
+           theRock = theField.Render(theRock);
+           heightsAfterBlocks.Add(theField.RockHeight());
+
+           if (templateIndex == blocks)
                 break;
 
             var key1 = theField.Key();
-            var key2 = TemplateIndex % Templates.Length;
+            var key2 = templateIndex % Templates.Length;
             var key3 = windIndex % windDirections.Length;
             var key = (key1, key2, key3);
             
-            if (hashSet.TryGetValue(key, out var previousBlock))
+            if (situationsDictionary.TryGetValue(key, out var previousBlock))
             {
-                var interval = TemplateIndex - previousBlock;
-                var myHeight = HeightsAfterBlocks[TemplateIndex];
-                var hisHeight = HeightsAfterBlocks[previousBlock];
+                var interval = templateIndex - previousBlock;
+                var myHeight = heightsAfterBlocks[templateIndex];
+                var hisHeight = heightsAfterBlocks[previousBlock];
                 var heightPerInterval = myHeight - hisHeight;
                 var refBlock = (int)(blocks % interval);
                 var repeats = blocks / interval;
-                var refHeight = HeightsAfterBlocks[refBlock];
+                var refHeight = heightsAfterBlocks[refBlock];
                 var extra = heightPerInterval * repeats;
                 var total = refHeight + extra;
                 return total;
             }
-            hashSet.Add(key, TemplateIndex);
-            theRock = theField.Spawn(NextTemplate());
-            theField.Dump(theRock, "@");
+            situationsDictionary.Add(key, templateIndex);
         }
 
-        //theField.Dump();
         return theField.RockHeight();
+
+        Thing SpawnRock()
+        {
+            return theField.Spawn(Templates[templateIndex++ % Templates.Length]);
+        }
     }
 
     internal static long Key(this Thing big)
@@ -158,7 +167,7 @@ public static class D17P1
         return thing;
     }
 
-    internal static void Render(this Thing big, Thing small)
+    internal static Thing? Render(this Thing big, Thing small)
     {
         for (int y = 0; y < small.Rock.Count; y++)
         {
@@ -171,6 +180,8 @@ public static class D17P1
                 targetRow[x + small.X - big.X] |= row[x];
             }
         }
+
+        return null;
     }
 
     private static bool[] EmptyLine() => Enumerable.Repeat(0, 7).Select(_ => false).ToArray();
@@ -218,9 +229,4 @@ public static class D17P1
         I,
         Dot
     };
-
-    internal static int TemplateIndex = 0;
-    internal static Template NextTemplate() => Templates[TemplateIndex++ % Templates.Length];
-
-
 }
